@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export default gql`
-  mutation Login($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
+  mutation login($email: String!, $password: String!) {
+    loginUser(loginInput: { email: $email, password: $password }) {
       accessToken
     }
   }
