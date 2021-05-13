@@ -7,6 +7,7 @@ import {
   Label,
   Form,
 } from "../styles/styledComponents/form";
+import { loginValidationSchema } from "../utils/validationSchemas";
 
 interface LoginFormProps {
   onSubmit: (cridentials: Login) => void;
@@ -16,6 +17,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     <FormContainer>
       <Formik
         initialValues={{ email: "", password: "" } as Login}
+        validationSchema={loginValidationSchema}
         onSubmit={(values) => {
           onSubmit(values);
         }}
@@ -44,7 +46,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                 onBlur={handleBlur}
               />
             </Label>
-            <SubmitButton type="submit">Login</SubmitButton>
+            <SubmitButton type="submit" disabled={isSubmitting}>
+              Login
+            </SubmitButton>
           </Form>
         )}
       </Formik>
