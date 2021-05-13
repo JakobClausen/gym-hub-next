@@ -2,6 +2,7 @@ import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
 import client from "../apollo/client";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { RefreshHOC } from "../components/auth/RefreshHOC";
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -24,7 +25,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <ApolloProvider client={client}>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <RefreshHOC>
+          <Component {...pageProps} />
+        </RefreshHOC>
       </ThemeProvider>
     </ApolloProvider>
   );

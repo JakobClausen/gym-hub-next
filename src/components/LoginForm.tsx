@@ -1,13 +1,16 @@
 import { Formik } from "formik";
+import { Login } from "../generated/graphql";
 import { Form, Input, SubmitButton } from "../styles/styledComponents/form";
 
-interface LoginFormProps {}
-export const LoginForm: React.FC<LoginFormProps> = ({}) => {
+interface LoginFormProps {
+  onSubmit: (cridentials: Login) => void;
+}
+export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   return (
     <Formik
-      initialValues={{ email: "", password: "" }}
+      initialValues={{ email: "", password: "" } as Login}
       onSubmit={(values) => {
-        console.log(values);
+        onSubmit(values);
       }}
     >
       {({ handleSubmit, handleChange, handleBlur, values, isSubmitting }) => (
@@ -26,9 +29,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({}) => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          <SubmitButton type="submit" disabled={isSubmitting}>
-            Login
-          </SubmitButton>
+          <SubmitButton type="submit">Login</SubmitButton>
         </Form>
       )}
     </Formik>
