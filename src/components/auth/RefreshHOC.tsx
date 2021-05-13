@@ -12,5 +12,5 @@ export const RefreshHOC: React.FC<RefreshHOCProps> = ({ children }) => {
     });
   }, []);
   if (loading) return <div>loading...</div>;
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
