@@ -8,7 +8,7 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
 
   if (loading) return <p>loading</p>;
 
-  return <DashLayout firstName={data?.me.firstName!}></DashLayout>;
+  return <DashLayout></DashLayout>;
 };
 
 export default Dashboard;

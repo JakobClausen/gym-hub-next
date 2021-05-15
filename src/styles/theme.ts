@@ -4,6 +4,6 @@ export default {
     whiteText: "#FFFFFF",
   },
   padding: {
-    border: "14px",
+    border: "20px",
   },
 };

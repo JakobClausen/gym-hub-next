@@ -1,30 +1,28 @@
 import { SpaceBetween } from "../styles/styledComponents/align";
-import { H2 } from "../styles/styledComponents/titles";
+import { H4 } from "../styles/styledComponents/titles";
 import { PrimaryContainer } from "../styles/styledComponents/containers";
-import { Avatar } from "../styles/styledComponents/image";
+import { Avatar, NavIcon } from "../styles/styledComponents/image";
 import { TopLayout, BottomNav } from "../styles/styledComponents/dashboard";
+import { DashNavButton } from "./DashNavButton";
 
-interface DashLayoutProps {
-  firstName: string;
-}
+interface DashLayoutProps {}
 
-export const DashLayout: React.FC<DashLayoutProps> = ({
-  children,
-  firstName,
-}) => {
+export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
   return (
     <PrimaryContainer>
       <TopLayout>
         <SpaceBetween>
-          <H2>{`Welcome ${firstName}`}</H2>
+          <H4>Dashboard</H4>
           <Avatar />
         </SpaceBetween>
       </TopLayout>
       {children}
       <BottomNav>
         <SpaceBetween>
-          <H2>{`Welcome ${firstName}`}</H2>
-          <Avatar />
+          <DashNavButton src="/icons/dashboardsvg.svg" />
+          <DashNavButton src="/icons/dashboardsvg.svg" />
+          <DashNavButton src="/icons/dashboardsvg.svg" />
+          <DashNavButton src="/icons/dashboardsvg.svg" />
         </SpaceBetween>
       </BottomNav>
     </PrimaryContainer>
