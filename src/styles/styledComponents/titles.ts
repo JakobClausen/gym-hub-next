@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const H1 = styled.h1`
   margin: 0px;
-  font-size: 18px;
   color: ${(props) => props.theme.colors.whiteText};
 `;
 
