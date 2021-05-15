@@ -1,5 +1,5 @@
-import { NavIcon } from "../styles/styledComponents/image";
-import { IconContainer } from "../styles/styledComponents/dashboard";
+import { NavIcon } from "../../styles/styledComponents/image";
+import { IconContainer } from "../../styles/styledComponents/dashboard";
 
 interface DashNavButtonProps {
   src: string;
