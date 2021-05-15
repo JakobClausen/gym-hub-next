@@ -11,3 +11,8 @@ export const NavIcon = styled.img`
   width: 20px;
   height: 20px;
 `;
+
+export const WelcomeEmoji = styled.img`
+  width: 30px;
+  height: 30px;
+`;
