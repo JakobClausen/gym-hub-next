@@ -11,9 +11,7 @@ export const Hello: React.FC<HelloProps> = ({ name }) => {
     <>
       <H3 style={{ fontSize: "38px", fontWeight: "bold" }}>Hello,</H3>
       <Flex>
-        <H3 style={{ fontSize: "38px", fontWeight: "bold", margin: 8 }}>
-          {name}
-        </H3>
+        <H3 style={{ fontSize: "38px", fontWeight: "bold" }}>{name}</H3>
         <WelcomeEmoji src="/icons/hand-emoji.png" />
       </Flex>
     </>
