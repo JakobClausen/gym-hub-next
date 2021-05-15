@@ -22,10 +22,10 @@ export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
       {children}
       <BottomNav>
         <SpaceBetween>
-          <DashNavButton src="/icons/dashboardsvg.svg" />
-          <DashNavButton src="/icons/dashboardsvg.svg" />
-          <DashNavButton src="/icons/dashboardsvg.svg" />
-          <DashNavButton src="/icons/dashboardsvg.svg" />
+          <DashNavButton src="/icons/dashboard.svg" />
+          <DashNavButton src="/icons/whiteboard.png" />
+          <DashNavButton src="/icons/remote.png" />
+          <DashNavButton src="/icons/settings.png" />
         </SpaceBetween>
       </BottomNav>
     </LayoutContainer>

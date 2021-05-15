@@ -1,6 +1,6 @@
 export default {
   colors: {
-    primary: "#1a1823",
+    primary: "#171717",
     whiteText: "#FFFFFF",
   },
   padding: {
