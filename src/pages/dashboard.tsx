@@ -1,18 +1,14 @@
-import React from "react";
+import { DashLayout } from "../components/DashLayout";
 import { useMeQuery } from "../generated/graphql";
-import { PrimaryContainer } from "../styles/styledComponents/containers";
-import { H2 } from "../styles/styledComponents/titles";
 
 interface DashboardProps {}
 
 const Dashboard: React.FC<DashboardProps> = ({}) => {
-  const { data, error } = useMeQuery();
+  const { data, loading } = useMeQuery();
 
-  return (
-    <PrimaryContainer>
-      {data && <H2>{`Welcome ${data?.me.firstName}`}</H2>}
-    </PrimaryContainer>
-  );
+  if (loading) return <p>loading</p>;
+
+  return <DashLayout firstName={data?.me.firstName!}></DashLayout>;
 };
 
 export default Dashboard;

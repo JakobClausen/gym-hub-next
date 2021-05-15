@@ -12,3 +12,9 @@ export const CenterHorizontal = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const SpaceBetween = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
