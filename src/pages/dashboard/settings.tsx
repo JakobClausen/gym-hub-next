@@ -3,6 +3,8 @@ import { DashLayout } from "../../components/dashboard/DashLayout";
 import { useLogoutMutation } from "../../generated/graphql";
 import { DashContentContainer } from "../../styles/styledComponents/dashboard";
 import { H4 } from "../../styles/styledComponents/titles";
+import { Button } from "../../styles/styledComponents/buttons";
+import { BottomContainer } from "../../styles/styledComponents/containers";
 
 interface SettingsProps {}
 
@@ -13,12 +15,16 @@ const Settings: React.FC<SettingsProps> = ({}) => {
     <DashLayout>
       <DashContentContainer>
         <H4>Settings</H4>
-        <button
-          onClick={() => {
-            logout();
-            router.push("/");
-          }}
-        ></button>
+        <BottomContainer>
+          <Button
+            onClick={() => {
+              logout();
+              router.push("/");
+            }}
+          >
+            Logout
+          </Button>
+        </BottomContainer>
       </DashContentContainer>
     </DashLayout>
   );

@@ -6,3 +6,12 @@ export const PrimaryContainer = styled.div`
   padding: ${(props) => props.theme.padding.border};
   background: ${(props) => props.theme.colors.primary};
 `;
+
+export const BottomContainer = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: ${(props) => props.theme.margin.bottom};
+  padding: ${(props) => props.theme.padding.border};
+  background: ${(props) => props.theme.colors.primary};
+`;

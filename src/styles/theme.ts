@@ -6,4 +6,8 @@ export default {
   padding: {
     border: "20px",
   },
+  margin: {
+    bottom: "10vh",
+    top: "10vh",
+  },
 };
