@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { setAccessToken, updateAccessToken } from "../../utils/accessToken";
-import Loader from "react-loader-spinner";
 import { useRouter } from "next/router";
 import { OpenPaths } from "../../types/auth";
-import { PrimaryContainer } from "../../styles/styledComponents/containers";
-import { Center } from "../../styles/styledComponents/align";
 import { Loading } from "../Loading";
+import toast from "react-hot-toast";
 
 interface RefreshHOCProps {}
 
 export const RefreshHOC: React.FC<RefreshHOCProps> = ({ children }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const notAuthToast = () => toast.error("Not authenticated");
 
   useEffect(() => {
     updateAccessToken()
@@ -34,9 +33,11 @@ export const RefreshHOC: React.FC<RefreshHOCProps> = ({ children }) => {
           const pushed = await router.push("/login");
           if (pushed) {
             setLoading(false);
+            notAuthToast();
           }
+        } else {
+          setLoading(false);
         }
-        setLoading(false);
       });
   }, []);
 

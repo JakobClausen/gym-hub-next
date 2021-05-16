@@ -6,12 +6,14 @@ import { ThemeProvider } from "styled-components";
 import { RefreshHOC } from "../components/auth/RefreshHOC";
 import { GlobalStyle } from "../styles/globals";
 import Theme from "../styles/theme";
+import { Toaster } from "react-hot-toast";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ApolloProvider client={client}>
       <GlobalStyle />
       <ThemeProvider theme={Theme}>
+        <Toaster />
         <RefreshHOC>
           <Component {...pageProps} />
         </RefreshHOC>
