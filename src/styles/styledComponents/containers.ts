@@ -15,3 +15,7 @@ export const BottomContainer = styled.div`
   padding: ${(props) => props.theme.padding.border};
   background: ${(props) => props.theme.colors.primary};
 `;
+
+export const TopBottomSpace = styled.div`
+  margin: ${(props) => `${props.theme.padding.border} 0px`};
+`;

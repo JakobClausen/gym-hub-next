@@ -13,5 +13,4 @@ export const DashContentContainer = styled.div`
   width: 100%;
   height: auto;
   background: ${(props) => props.theme.colors.primary};
-  padding: ${(props) => `0px ${props.theme.padding.border}`};
 `;

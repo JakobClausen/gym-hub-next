@@ -7,6 +7,7 @@ export const LayoutContainer = styled.div`
   top: 0;
   bottom: 0;
   background: ${(props) => props.theme.colors.primary};
+  padding: ${(props) => props.theme.padding.border};
 `;
 
 export const TopLayout = styled.div`
