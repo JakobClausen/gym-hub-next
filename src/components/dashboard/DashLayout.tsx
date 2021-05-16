@@ -17,7 +17,7 @@ export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
       <TopLayout>
         <SpaceBetween>
           <H4>Dashboard</H4>
-          <Avatar />
+          <Avatar src="/images/fysikenAvatar.jpeg" />
         </SpaceBetween>
       </TopLayout>
       {children}

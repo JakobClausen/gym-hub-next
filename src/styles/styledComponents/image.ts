@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
-export const Avatar = styled.div`
-  width: 35px;
-  height: 35px;
+export const Avatar = styled.img`
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
-  background-color: red;
 `;
 
 export const NavIcon = styled.img`
