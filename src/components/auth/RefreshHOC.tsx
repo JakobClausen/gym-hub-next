@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { OpenPaths } from "../../types/auth";
 import { PrimaryContainer } from "../../styles/styledComponents/containers";
 import { Center } from "../../styles/styledComponents/align";
+import { Loading } from "../Loading";
 
 interface RefreshHOCProps {}
 
@@ -39,13 +40,6 @@ export const RefreshHOC: React.FC<RefreshHOCProps> = ({ children }) => {
       });
   }, []);
 
-  if (loading)
-    return (
-      <PrimaryContainer>
-        <Center>
-          <Loader type="TailSpin" color="#FFFFFF" height={50} width={50} />
-        </Center>
-      </PrimaryContainer>
-    );
+  if (loading) return <Loading />;
   return <>{children}</>;
 };
