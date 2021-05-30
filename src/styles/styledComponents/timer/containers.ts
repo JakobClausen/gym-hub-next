@@ -7,7 +7,7 @@ export const TimerContainer = styled.div`
   background: ${(props) => props.theme.timer.color.background};
 `;
 
-export const GridOne = styled.div`
+export const VerticalGrid = styled.div`
   display: grid;
   height: 100%;
   width: 100%;
@@ -16,7 +16,7 @@ export const GridOne = styled.div`
   gap: 20px;
 `;
 
-export const GridTwo = styled.div`
+export const HorizontalGrid = styled.div`
   display: grid;
   height: 100%;
   width: 100%;
@@ -25,9 +25,21 @@ export const GridTwo = styled.div`
   gap: 20px;
 `;
 
-export const WhiteboardPlaceholder = styled.div`
+export const WhiteboardContainer = styled.div`
   height: 100%;
   width: 100%;
   border-radius: 8px;
-  background-color: #fffafa;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 7px;
+  overflow: hidden;
+  background-color: #000000;
+`;
+
+export const WhiteboardContainerItem = styled.div`
+  height: 100%;
+  width: 100%;
+  background-color: #fff1f1;
+  padding: 20px;
 `;

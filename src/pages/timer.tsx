@@ -1,21 +1,21 @@
 import React from "react";
+import { Whiteboard } from "../components/timer/Whiteboard";
 import {
-  GridOne,
-  GridTwo,
+  HorizontalGrid,
   TimerContainer,
-  WhiteboardPlaceholder,
-} from "../styles/styledComponents/timer";
+  VerticalGrid,
+} from "../styles/styledComponents/timer/containers";
 
 interface TimerProps {}
 
 const Timer: React.FC<TimerProps> = ({}) => {
   return (
     <TimerContainer>
-      <GridOne>
+      <VerticalGrid>
         <div
           style={{ backgroundColor: "#d6e266", width: "100%", height: "100%" }}
         ></div>
-        <GridTwo>
+        <HorizontalGrid>
           <div
             style={{
               backgroundColor: "#ff0000",
@@ -23,9 +23,9 @@ const Timer: React.FC<TimerProps> = ({}) => {
               height: "100%",
             }}
           ></div>
-          <WhiteboardPlaceholder />
-        </GridTwo>
-      </GridOne>
+          <Whiteboard />
+        </HorizontalGrid>
+      </VerticalGrid>
     </TimerContainer>
   );
 };
