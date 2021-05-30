@@ -10,4 +10,12 @@ export default {
     bottom: "10vh",
     top: "10vh",
   },
+  timer: {
+    color: {
+      background: "#171717",
+    },
+    padding: {
+      border: "20px",
+    },
+  },
 };
