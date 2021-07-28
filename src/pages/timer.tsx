@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { ClassList } from '../components/timer/ClassList';
+import { TimerHeader } from '../components/timer/TimerHeader';
 import { Whiteboard } from '../components/timer/Whiteboard';
 import { GymClass, useGetGymClassesLazyQuery } from '../generated/graphql';
 import {
@@ -44,9 +45,7 @@ const Timer: React.FC<TimerProps> = ({}) => {
   return (
     <TimerContainer>
       <VerticalGrid>
-        <div
-          style={{ backgroundColor: '#d6e266', width: '100%', height: '100%' }}
-        ></div>
+        <TimerHeader clock={clock} />
         <HorizontalGrid>
           <ClassList classes={classes} clock={clock} />
           <Whiteboard />
