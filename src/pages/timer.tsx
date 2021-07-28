@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
+import { Loader } from '../components/Loader';
 import { ClassList } from '../components/timer/ClassList';
 import { TimerHeader } from '../components/timer/TimerHeader';
 import { Whiteboard } from '../components/timer/Whiteboard';
@@ -12,10 +13,33 @@ import {
 
 interface TimerProps {}
 
+const fakeClasses: Partial<GymClass>[] = [
+  {
+    name: 'Crossfit',
+    startTime: '11:00',
+    endTime: '12:00',
+  },
+  {
+    name: 'Crossfit',
+    startTime: '12:00',
+    endTime: '13:00',
+  },
+  {
+    name: 'Crossfit',
+    startTime: '13:00',
+    endTime: '14:00',
+  },
+  {
+    name: 'Crossfit',
+    startTime: '14:00',
+    endTime: '15:00',
+  },
+];
+
 const Timer: React.FC<TimerProps> = ({}) => {
   const [classes, setClasses] = useState<null | Partial<GymClass>[]>(null);
 
-  const [clock, setClock] = useState<null | string>(null);
+  const [clock, setClock] = useState<string>(dayjs().format('HH:mm'));
 
   const [getGymClasses, { loading }] = useGetGymClassesLazyQuery({
     onCompleted: (data) => setClasses(data.classes),
@@ -29,25 +53,23 @@ const Timer: React.FC<TimerProps> = ({}) => {
   });
 
   useEffect(() => {
-    if (clock) {
-      if (!classes) {
-        getGymClasses({ variables: { day: 2 } });
-      }
+    if (!classes) {
+      getGymClasses({ variables: { day: 2 } });
+    }
 
-      if (clock === '03:00' || clock === '03:01') {
-        getGymClasses({ variables: { day: 2 } });
-      }
+    if (clock === '03:00' || clock === '03:01') {
+      getGymClasses({ variables: { day: 2 } });
     }
   }, [clock]);
 
-  if (!clock || loading) return <p>Loading</p>;
+  if (loading) return <Loader />;
 
   return (
     <TimerContainer>
       <VerticalGrid>
         <TimerHeader clock={clock} />
         <HorizontalGrid>
-          <ClassList classes={classes} clock={clock} />
+          <ClassList classes={fakeClasses} clock={clock} />
           <Whiteboard />
         </HorizontalGrid>
       </VerticalGrid>

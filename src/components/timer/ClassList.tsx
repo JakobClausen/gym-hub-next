@@ -2,21 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { GymClass } from '../../generated/graphql';
 import {
   Container,
-  GymClassCard,
-  GymClassCardActive,
   List,
-  Text,
   Timeline,
   TimelineFadeDown,
   TimelineFadeUp,
 } from '../../styles/styledComponents/timer/gymClasses';
 import { fitlerGymClasses } from '../../utils/timerUtils';
+import { GymClassCard } from './GymClassCard';
 
 type ClassesType = Partial<GymClass>;
 
 interface ClassListProps {
   classes: null | ClassesType[];
-  clock: null | string;
+  clock: string;
 }
 
 export const ClassList: React.FC<ClassListProps> = ({ classes, clock }) => {
@@ -42,16 +40,12 @@ export const ClassList: React.FC<ClassListProps> = ({ classes, clock }) => {
       </Timeline>
       <List>
         {activeClass && (
-          <GymClassCardActive>
-            <Text>{`${activeClass.startTime} - ${activeClass.endTime}`}</Text>
-          </GymClassCardActive>
+          <GymClassCard gymClass={activeClass} isActive={true} clock={clock} />
         )}
         {filteredClasses &&
           filteredClasses.map((gymClass) => {
             return (
-              <GymClassCard key={gymClass.startTime}>
-                <Text>{`${gymClass.startTime} - ${gymClass.endTime}`}</Text>
-              </GymClassCard>
+              <GymClassCard key={gymClass.startTime} gymClass={gymClass} />
             );
           })}
       </List>

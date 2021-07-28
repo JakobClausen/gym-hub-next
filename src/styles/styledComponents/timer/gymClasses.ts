@@ -32,28 +32,44 @@ export const TimelineFadeDown = styled.div`
 
 export const List = styled.div`
   width: 100%;
-  padding: 0px 20px;
+  padding-left: 20px;
 `;
 
-export const GymClassCard = styled.div`
+export const Card = styled.div<{ isActive?: boolean }>`
   width: 100%;
-  height: 70px;
-  background-color: #222222;
+  height: 90px;
+  background-color: ${(props) =>
+    props.isActive
+      ? props.theme.colors.activeGymClass
+      : props.theme.colors.inactiveGymClass};
   border-radius: 8px;
   margin-bottom: 30px;
   padding: 10px;
+  display: flex;
 `;
 
-export const GymClassCardActive = styled.div`
+export const TextContainer = styled.div`
   width: 100%;
-  height: 70px;
-  background-color: green;
-  border-radius: 8px;
-  margin-bottom: 30px;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
-export const Text = styled.p`
+export const TimeContainer = styled.div`
+  width: 100%;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const CardText = styled.p`
+  color: antiquewhite;
+  font-size: 18px;
+  margin: 0px;
+`;
+
+export const TimeText = styled.p`
   color: antiquewhite;
   font-size: 18px;
   margin: 0px;
