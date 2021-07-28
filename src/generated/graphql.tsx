@@ -16,6 +16,35 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type AddGymClass = {
+  name?: Maybe<Scalars['String']>;
+  dayOfTheWeek: Scalars['Float'];
+  startTime: Scalars['String'];
+  endTime: Scalars['String'];
+};
+
+
+export type Gym = {
+  __typename?: 'Gym';
+  id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  name: Scalars['String'];
+  user: User;
+};
+
+export type GymClass = {
+  __typename?: 'GymClass';
+  id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  name: Scalars['String'];
+  dayOfTheWeek: Scalars['Float'];
+  startTime: Scalars['String'];
+  endTime: Scalars['String'];
+  gym: Gym;
+  gymId: Scalars['Float'];
+};
 
 export type Login = {
   email: Scalars['String'];
@@ -29,9 +58,21 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createGymClass: GymClass;
+  registerGym: Gym;
   registerUser: User;
   loginUser: LoginResponse;
   logout: Scalars['Boolean'];
+};
+
+
+export type MutationCreateGymClassArgs = {
+  createGymClass: AddGymClass;
+};
+
+
+export type MutationRegisterGymArgs = {
+  registerGym: RegisterGym;
 };
 
 
@@ -46,8 +87,14 @@ export type MutationLoginUserArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  hello: Scalars['String'];
+  classes: Array<GymClass>;
+  myGym: Gym;
   me: User;
+};
+
+
+export type QueryClassesArgs = {
+  day?: Maybe<Scalars['Float']>;
 };
 
 export type Register = {
@@ -55,6 +102,11 @@ export type Register = {
   lastName: Scalars['String'];
   email: Scalars['String'];
   password: Scalars['String'];
+  gymId: Scalars['Float'];
+};
+
+export type RegisterGym = {
+  name: Scalars['String'];
 };
 
 export type User = {
@@ -66,6 +118,8 @@ export type User = {
   lastName: Scalars['String'];
   email: Scalars['String'];
   tokenVersion: Scalars['Float'];
+  gym: Gym;
+  gymId: Scalars['Float'];
 };
 
 export type LoginMutationVariables = Exact<{
@@ -88,6 +142,19 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 export type LogoutMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'logout'>
+);
+
+export type GetGymClassesQueryVariables = Exact<{
+  day: Scalars['Float'];
+}>;
+
+
+export type GetGymClassesQuery = (
+  { __typename?: 'Query' }
+  & { classes: Array<(
+    { __typename?: 'GymClass' }
+    & Pick<GymClass, 'id' | 'name' | 'startTime' | 'endTime'>
+  )> }
 );
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -166,6 +233,44 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const GetGymClassesDocument = gql`
+    query getGymClasses($day: Float!) {
+  classes(day: $day) {
+    id
+    name
+    startTime
+    endTime
+  }
+}
+    `;
+
+/**
+ * __useGetGymClassesQuery__
+ *
+ * To run a query within a React component, call `useGetGymClassesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetGymClassesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetGymClassesQuery({
+ *   variables: {
+ *      day: // value for 'day'
+ *   },
+ * });
+ */
+export function useGetGymClassesQuery(baseOptions: Apollo.QueryHookOptions<GetGymClassesQuery, GetGymClassesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetGymClassesQuery, GetGymClassesQueryVariables>(GetGymClassesDocument, options);
+      }
+export function useGetGymClassesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetGymClassesQuery, GetGymClassesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetGymClassesQuery, GetGymClassesQueryVariables>(GetGymClassesDocument, options);
+        }
+export type GetGymClassesQueryHookResult = ReturnType<typeof useGetGymClassesQuery>;
+export type GetGymClassesLazyQueryHookResult = ReturnType<typeof useGetGymClassesLazyQuery>;
+export type GetGymClassesQueryResult = Apollo.QueryResult<GetGymClassesQuery, GetGymClassesQueryVariables>;
 export const MeDocument = gql`
     query me {
   me {

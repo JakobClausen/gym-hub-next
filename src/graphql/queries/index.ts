@@ -1,3 +1,4 @@
-import ME from "./me";
+import GET_GYM_CLASSES from './gymClasses';
+import ME from './me';
 
-export { ME };
+export { ME, GET_GYM_CLASSES };
