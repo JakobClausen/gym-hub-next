@@ -10,26 +10,30 @@ import {
   TimelineFadeDown,
   TimelineFadeUp,
 } from '../../styles/styledComponents/timer/gymClasses';
+import { fitlerGymClasses } from '../../utils/timerUtils';
 
-type classesType = Partial<GymClass>;
+type ClassesType = Partial<GymClass>;
 
 interface ClassListProps {
-  classes: null | classesType[];
+  classes: null | ClassesType[];
+  clock: null | string;
 }
 
-export const ClassList: React.FC<ClassListProps> = ({ classes }) => {
-  const [activeClass, setActiveClass] = useState<null | classesType>(null);
+export const ClassList: React.FC<ClassListProps> = ({ classes, clock }) => {
+  const [activeClass, setActiveClass] = useState<null | ClassesType>(null);
 
-  const [filteredClasses, setFilteredClasses] = useState<null | classesType[]>(
+  const [filteredClasses, setFilteredClasses] = useState<null | ClassesType[]>(
     null
   );
 
   useEffect(() => {
-    if (classes) {
-      setActiveClass(classes[0]);
-      setFilteredClasses(classes);
+    if (classes && clock) {
+      const { aciveClass, futureClasses } = fitlerGymClasses(classes, clock);
+      setActiveClass(aciveClass);
+      setFilteredClasses(futureClasses);
     }
-  }, [classes]);
+  }, [classes, clock]);
+
   return (
     <Container>
       <Timeline>
