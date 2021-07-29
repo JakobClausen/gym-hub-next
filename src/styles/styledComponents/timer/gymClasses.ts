@@ -35,17 +35,19 @@ export const List = styled.div`
   padding-left: 20px;
 `;
 
-export const Card = styled.div<{ isActive?: boolean }>`
+export const Card = styled.div<{ isActive?: boolean; hasPassed?: boolean }>`
   width: 100%;
   height: 90px;
-  background-color: ${(props) =>
-    props.isActive
+  background-color: ${(props) => {
+    return props.isActive
       ? props.theme.colors.activeGymClass
-      : props.theme.colors.inactiveGymClass};
+      : props.theme.colors.inactiveGymClass;
+  }};
   border-radius: 8px;
   margin-bottom: 30px;
   padding: 10px;
   display: flex;
+  opacity: ${(props) => (props.hasPassed ? 0.4 : 1)};
 `;
 
 export const TextContainer = styled.div`

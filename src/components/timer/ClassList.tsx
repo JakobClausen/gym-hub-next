@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { GymClass } from '../../generated/graphql';
+import React from 'react';
 import {
   Container,
   List,
@@ -7,31 +6,15 @@ import {
   TimelineFadeDown,
   TimelineFadeUp,
 } from '../../styles/styledComponents/timer/gymClasses';
-import { fitlerGymClasses } from '../../utils/timerUtils';
+import { FormatedClassesType } from '../../types/timer';
 import { GymClassCard } from './GymClassCard';
 
-type ClassesType = Partial<GymClass>;
-
 interface ClassListProps {
-  classes: null | ClassesType[];
+  classes: null | FormatedClassesType[];
   clock: string;
 }
 
 export const ClassList: React.FC<ClassListProps> = ({ classes, clock }) => {
-  const [activeClass, setActiveClass] = useState<null | ClassesType>(null);
-
-  const [filteredClasses, setFilteredClasses] = useState<null | ClassesType[]>(
-    null
-  );
-
-  useEffect(() => {
-    if (classes && clock) {
-      const { aciveClass, futureClasses } = fitlerGymClasses(classes, clock);
-      setActiveClass(aciveClass);
-      setFilteredClasses(futureClasses);
-    }
-  }, [classes, clock]);
-
   return (
     <Container>
       <Timeline>
@@ -39,13 +22,16 @@ export const ClassList: React.FC<ClassListProps> = ({ classes, clock }) => {
         <TimelineFadeDown />
       </Timeline>
       <List>
-        {activeClass && (
-          <GymClassCard gymClass={activeClass} isActive={true} clock={clock} />
-        )}
-        {filteredClasses &&
-          filteredClasses.map((gymClass) => {
+        {classes &&
+          classes.map((gymClass) => {
+            const { startTime, isActive, hasPassed } = gymClass;
             return (
-              <GymClassCard key={gymClass.startTime} gymClass={gymClass} />
+              <GymClassCard
+                key={startTime}
+                gymClass={gymClass}
+                isActive={isActive}
+                hasPassed={hasPassed}
+              />
             );
           })}
       </List>

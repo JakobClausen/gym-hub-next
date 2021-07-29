@@ -10,6 +10,8 @@ import {
   TimerContainer,
   VerticalGrid,
 } from '../styles/styledComponents/timer/containers';
+import { FormatedClassesType } from '../types/timer';
+import { formatGymClasses } from '../utils/timerUtils';
 
 interface TimerProps {}
 
@@ -31,19 +33,24 @@ const fakeClasses: Partial<GymClass>[] = [
   },
   {
     name: 'Crossfit',
-    startTime: '14:00',
-    endTime: '15:00',
+    startTime: '19:00',
+    endTime: '20:00',
+  },
+  {
+    name: 'Crossfit',
+    startTime: '21:00',
+    endTime: '22:00',
   },
 ];
 
 const Timer: React.FC<TimerProps> = ({}) => {
-  const [classes, setClasses] = useState<null | Partial<GymClass>[]>(null);
+  const [classes, setClasses] = useState<null | Partial<FormatedClassesType>[]>(
+    null
+  );
 
   const [clock, setClock] = useState<string>(dayjs().format('HH:mm'));
 
-  const [getGymClasses, { loading }] = useGetGymClassesLazyQuery({
-    onCompleted: (data) => setClasses(data.classes),
-  });
+  const [getGymClasses, { data, loading }] = useGetGymClassesLazyQuery();
 
   useEffect(() => {
     var timer = setInterval(() => setClock(dayjs().format('HH:mm')), 1000);
@@ -62,6 +69,13 @@ const Timer: React.FC<TimerProps> = ({}) => {
     }
   }, [clock]);
 
+  useEffect(() => {
+    if (data && clock) {
+      const formatedClasses = formatGymClasses(fakeClasses, clock);
+      setClasses(formatedClasses);
+    }
+  }, [data, clock]);
+
   if (loading) return <Loader />;
 
   return (
@@ -69,7 +83,7 @@ const Timer: React.FC<TimerProps> = ({}) => {
       <VerticalGrid>
         <TimerHeader clock={clock} />
         <HorizontalGrid>
-          <ClassList classes={fakeClasses} clock={clock} />
+          <ClassList classes={classes} clock={clock} />
           <Whiteboard />
         </HorizontalGrid>
       </VerticalGrid>

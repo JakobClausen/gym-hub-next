@@ -1,16 +1,22 @@
 import dayjs from 'dayjs';
 import { GymClass } from '../generated/graphql';
+import { FormatedClassesType } from '../types/timer';
 
-export const fitlerGymClasses = (
+export const formatGymClasses = (
   classes: Partial<GymClass>[],
   clock: string
-) => {
-  const aciveClass = classes.find(
-    ({ endTime, startTime }) => clock >= startTime! && clock < endTime!
-  );
-  const futureClasses = classes.filter(({ startTime }) => startTime! > clock);
-  return { aciveClass: aciveClass ?? null, futureClasses };
-};
+): Partial<FormatedClassesType>[] =>
+  classes.map((gymClass) => {
+    const { endTime, startTime } = gymClass;
+    const isActive = clock >= startTime! && clock < endTime!;
+    const hasPassed = clock > endTime!;
+
+    return {
+      ...gymClass,
+      isActive,
+      hasPassed,
+    };
+  });
 
 export const calcGymClassCountdown = (endTime: string) => {
   const end = dayjs(endTime, 'HH:mm').valueOf();
