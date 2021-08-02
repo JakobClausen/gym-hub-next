@@ -23,18 +23,21 @@ export const GymClassCard: React.FC<GymClassCardProps> = ({
   clock,
 }) => {
   const [classCountdown, setClassCountdown] = useState<null | string>(null);
-  const { name, startTime, endTime } = gymClass;
+  const { type, startTime, endTime } = gymClass;
 
   useEffect(() => {
     if (isActive) {
       const classCountdown = calcGymClassCountdown(endTime!);
       setClassCountdown(classCountdown);
     }
+    if (!isActive) {
+      setClassCountdown(classCountdown);
+    }
   }, [isActive, clock]);
   return (
     <Card isActive={isActive} hasPassed={hasPassed}>
       <TextContainer>
-        <CardText>{name}</CardText>
+        <CardText>{type}</CardText>
         <CardText>{`${startTime} - ${endTime}`}</CardText>
       </TextContainer>
       {classCountdown && (

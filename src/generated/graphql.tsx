@@ -17,7 +17,7 @@ export type Scalars = {
 };
 
 export type AddGymClass = {
-  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
   dayOfTheWeek: Scalars['Float'];
   startTime: Scalars['String'];
   endTime: Scalars['String'];
@@ -38,7 +38,7 @@ export type GymClass = {
   id: Scalars['ID'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  name: Scalars['String'];
+  type: Scalars['String'];
   dayOfTheWeek: Scalars['Float'];
   startTime: Scalars['String'];
   endTime: Scalars['String'];
@@ -63,6 +63,8 @@ export type Mutation = {
   registerUser: User;
   loginUser: LoginResponse;
   logout: Scalars['Boolean'];
+  createWorkout: Workout;
+  createWorkoutSection: WorkoutSection;
 };
 
 
@@ -85,16 +87,39 @@ export type MutationLoginUserArgs = {
   loginInput: Login;
 };
 
+
+export type MutationCreateWorkoutArgs = {
+  workoutIntput: WorkoutInput;
+};
+
+
+export type MutationCreateWorkoutSectionArgs = {
+  workoutSectionIntput: WorkoutSectionInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   classes: Array<GymClass>;
   myGym: Gym;
   me: User;
+  getWorkoutByDay: Workout;
+  getWorkoutSection: WorkoutSection;
 };
 
 
 export type QueryClassesArgs = {
   day?: Maybe<Scalars['Float']>;
+};
+
+
+export type QueryGetWorkoutByDayArgs = {
+  type: Scalars['String'];
+  day: Scalars['Float'];
+};
+
+
+export type QueryGetWorkoutSectionArgs = {
+  id: Scalars['Float'];
 };
 
 export type Register = {
@@ -122,6 +147,42 @@ export type User = {
   gymId: Scalars['Float'];
 };
 
+export type Workout = {
+  __typename?: 'Workout';
+  id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  type: Scalars['String'];
+  dayOfTheWeek: Scalars['Float'];
+  gymId: Scalars['Float'];
+  gym: Gym;
+  workoutSection?: Maybe<Array<WorkoutSection>>;
+};
+
+export type WorkoutInput = {
+  type?: Maybe<Scalars['String']>;
+  dayOfTheWeek: Scalars['Float'];
+};
+
+export type WorkoutSection = {
+  __typename?: 'WorkoutSection';
+  id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  title: Scalars['String'];
+  body: Scalars['String'];
+  order: Scalars['Float'];
+  workoutId: Scalars['Float'];
+  workout: Workout;
+};
+
+export type WorkoutSectionInput = {
+  title: Scalars['String'];
+  body: Scalars['String'];
+  order: Scalars['Float'];
+  workoutId: Scalars['Float'];
+};
+
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -144,6 +205,24 @@ export type LogoutMutation = (
   & Pick<Mutation, 'logout'>
 );
 
+export type GetWorkoutQueryVariables = Exact<{
+  type: Scalars['String'];
+  day: Scalars['Float'];
+}>;
+
+
+export type GetWorkoutQuery = (
+  { __typename?: 'Query' }
+  & { getWorkoutByDay: (
+    { __typename?: 'Workout' }
+    & Pick<Workout, 'type'>
+    & { workoutSection?: Maybe<Array<(
+      { __typename?: 'WorkoutSection' }
+      & Pick<WorkoutSection, 'title' | 'body' | 'order'>
+    )>> }
+  ) }
+);
+
 export type GetGymClassesQueryVariables = Exact<{
   day: Scalars['Float'];
 }>;
@@ -153,7 +232,7 @@ export type GetGymClassesQuery = (
   { __typename?: 'Query' }
   & { classes: Array<(
     { __typename?: 'GymClass' }
-    & Pick<GymClass, 'id' | 'name' | 'startTime' | 'endTime'>
+    & Pick<GymClass, 'type' | 'startTime' | 'endTime'>
   )> }
 );
 
@@ -233,11 +312,51 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const GetWorkoutDocument = gql`
+    query getWorkout($type: String!, $day: Float!) {
+  getWorkoutByDay(type: $type, day: $day) {
+    type
+    workoutSection {
+      title
+      body
+      order
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetWorkoutQuery__
+ *
+ * To run a query within a React component, call `useGetWorkoutQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetWorkoutQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetWorkoutQuery({
+ *   variables: {
+ *      type: // value for 'type'
+ *      day: // value for 'day'
+ *   },
+ * });
+ */
+export function useGetWorkoutQuery(baseOptions: Apollo.QueryHookOptions<GetWorkoutQuery, GetWorkoutQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetWorkoutQuery, GetWorkoutQueryVariables>(GetWorkoutDocument, options);
+      }
+export function useGetWorkoutLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetWorkoutQuery, GetWorkoutQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetWorkoutQuery, GetWorkoutQueryVariables>(GetWorkoutDocument, options);
+        }
+export type GetWorkoutQueryHookResult = ReturnType<typeof useGetWorkoutQuery>;
+export type GetWorkoutLazyQueryHookResult = ReturnType<typeof useGetWorkoutLazyQuery>;
+export type GetWorkoutQueryResult = Apollo.QueryResult<GetWorkoutQuery, GetWorkoutQueryVariables>;
 export const GetGymClassesDocument = gql`
     query getGymClasses($day: Float!) {
   classes(day: $day) {
-    id
-    name
+    type
     startTime
     endTime
   }

@@ -28,6 +28,7 @@ export const ClassList: React.FC<ClassListProps> = ({ classes, clock }) => {
             return (
               <GymClassCard
                 key={startTime}
+                clock={clock}
                 gymClass={gymClass}
                 isActive={isActive}
                 hasPassed={hasPassed}

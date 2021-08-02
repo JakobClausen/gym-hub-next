@@ -17,27 +17,32 @@ interface TimerProps {}
 
 const fakeClasses: Partial<GymClass>[] = [
   {
-    name: 'Crossfit',
+    type: 'Crossfit',
     startTime: '11:00',
     endTime: '12:00',
   },
   {
-    name: 'Crossfit',
+    type: 'Crossfit',
     startTime: '12:00',
     endTime: '13:00',
   },
   {
-    name: 'Crossfit',
+    type: 'Crossfit',
     startTime: '13:00',
     endTime: '14:00',
   },
   {
-    name: 'Crossfit',
-    startTime: '19:00',
-    endTime: '20:00',
+    type: 'Gymnastics',
+    startTime: '15:00',
+    endTime: '15:25 ',
   },
   {
-    name: 'Crossfit',
+    type: 'Crossfit',
+    startTime: '19:00',
+    endTime: '19:53',
+  },
+  {
+    type: 'Crossfit',
     startTime: '21:00',
     endTime: '22:00',
   },

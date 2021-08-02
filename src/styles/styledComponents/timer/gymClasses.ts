@@ -48,6 +48,7 @@ export const Card = styled.div<{ isActive?: boolean; hasPassed?: boolean }>`
   padding: 10px;
   display: flex;
   opacity: ${(props) => (props.hasPassed ? 0.4 : 1)};
+  transition: ${(props) => props.hasPassed && 'opacity 2s ease-in-out'};
 `;
 
 export const TextContainer = styled.div`

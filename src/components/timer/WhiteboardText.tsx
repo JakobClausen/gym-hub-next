@@ -1,25 +1,24 @@
-import React from "react";
-import { WhiteboardContainerItem } from "../../styles/styledComponents/timer/containers";
+import React from 'react';
+import { WorkoutSection } from '../../generated/graphql';
+import { WhiteboardContainerItem } from '../../styles/styledComponents/timer/containers';
 import {
   WhiteboardBody,
   WhiteboardTitle,
-} from "../../styles/styledComponents/timer/titles";
+} from '../../styles/styledComponents/timer/titles';
 
-interface WhiteboardTextProps {}
+interface WhiteboardTextProps {
+  section: {
+    __typename?: 'WorkoutSection' | undefined;
+  } & Pick<WorkoutSection, 'title' | 'body' | 'order'>;
+}
 
-export const WhiteboardText: React.FC<WhiteboardTextProps> = ({}) => {
+export const WhiteboardText: React.FC<WhiteboardTextProps> = ({
+  section: { title, body },
+}) => {
   return (
     <WhiteboardContainerItem>
-      <WhiteboardTitle>Warmup</WhiteboardTitle>
-      <WhiteboardBody>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa porro
-        reiciendis facilis officiis, sint magnam cum possimus laboriosam
-        provident autem optio suscipit accusantium quos excepturi perspiciatis
-        esse doloribus officia accusamus. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Culpa porro reiciendis facilis officiis, sint magnam
-        cum possimus laboriosam provident autem optio suscipit accusantium quos
-        excepturi perspiciatis esse doloribus officia accusamus.
-      </WhiteboardBody>
+      <WhiteboardTitle>{title}</WhiteboardTitle>
+      <WhiteboardBody dangerouslySetInnerHTML={{ __html: body }} />
     </WhiteboardContainerItem>
   );
 };
