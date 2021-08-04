@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const WhiteboardTitle = styled.h3`
   font-size: 32px;

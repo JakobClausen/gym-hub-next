@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TimerContainer = styled.div`
   height: 100vh;
@@ -25,12 +25,12 @@ export const HorizontalGrid = styled.div`
   gap: 20px;
 `;
 
-export const WhiteboardContainer = styled.div`
+export const WhiteboardContainer = styled.div<{ length?: number }>`
   height: 100%;
   width: 100%;
   border-radius: 8px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: ${(props) => `repeat(${props.length}, 1fr)`};
   grid-template-rows: 1fr;
   gap: 7px;
   overflow: hidden;

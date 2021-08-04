@@ -4,13 +4,17 @@ import { Loader } from '../components/Loader';
 import { ClassList } from '../components/timer/ClassList';
 import { TimerHeader } from '../components/timer/TimerHeader';
 import { Whiteboard } from '../components/timer/Whiteboard';
-import { GymClass, useGetGymClassesLazyQuery } from '../generated/graphql';
+import {
+  GetWorkoutQuery,
+  GymClass,
+  useGetGymClassesLazyQuery,
+  useGetWorkoutQuery,
+} from '../generated/graphql';
 import {
   HorizontalGrid,
   TimerContainer,
   VerticalGrid,
 } from '../styles/styledComponents/timer/containers';
-import { FormatedClassesType } from '../types/timer';
 import { formatGymClasses } from '../utils/timerUtils';
 
 interface TimerProps {}
@@ -49,13 +53,21 @@ const fakeClasses: Partial<GymClass>[] = [
 ];
 
 const Timer: React.FC<TimerProps> = ({}) => {
-  const [classes, setClasses] = useState<null | Partial<FormatedClassesType>[]>(
-    null
-  );
+  const [classes, setClasses] = useState<null | Partial<GymClass>[]>(null);
 
   const [clock, setClock] = useState<string>(dayjs().format('HH:mm'));
+  const [workout, setWorkout] = useState<null | GetWorkoutQuery>(null);
 
-  const [getGymClasses, { data, loading }] = useGetGymClassesLazyQuery();
+  const [getGymClasses, { data, loading: classesLoading }] =
+    useGetGymClassesLazyQuery();
+
+  const { loading: sectionsLoading } = useGetWorkoutQuery({
+    variables: {
+      type: 'Crossfit',
+      day: 4,
+    },
+    onCompleted: (data) => data && setWorkout(data),
+  });
 
   useEffect(() => {
     var timer = setInterval(() => setClock(dayjs().format('HH:mm')), 1000);
@@ -81,7 +93,7 @@ const Timer: React.FC<TimerProps> = ({}) => {
     }
   }, [data, clock]);
 
-  if (loading) return <Loader />;
+  if (classesLoading || sectionsLoading) return <Loader />;
 
   return (
     <TimerContainer>
@@ -89,7 +101,7 @@ const Timer: React.FC<TimerProps> = ({}) => {
         <TimerHeader clock={clock} />
         <HorizontalGrid>
           <ClassList classes={classes} clock={clock} />
-          <Whiteboard />
+          {workout && <Whiteboard workout={workout} />}
         </HorizontalGrid>
       </VerticalGrid>
     </TimerContainer>

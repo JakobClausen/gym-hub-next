@@ -1,5 +1,5 @@
 import React from 'react';
-import { WorkoutSection } from '../../generated/graphql';
+import { Maybe, WorkoutSection } from '../../generated/graphql';
 import { WhiteboardContainerItem } from '../../styles/styledComponents/timer/containers';
 import {
   WhiteboardBody,
@@ -7,18 +7,25 @@ import {
 } from '../../styles/styledComponents/timer/titles';
 
 interface WhiteboardTextProps {
-  section: {
-    __typename?: 'WorkoutSection' | undefined;
-  } & Pick<WorkoutSection, 'title' | 'body' | 'order'>;
+  section: Partial<WorkoutSection>;
+  externalApiProvider: Maybe<string> | undefined;
 }
 
 export const WhiteboardText: React.FC<WhiteboardTextProps> = ({
   section: { title, body },
+  externalApiProvider,
 }) => {
   return (
     <WhiteboardContainerItem>
       <WhiteboardTitle>{title}</WhiteboardTitle>
-      <WhiteboardBody dangerouslySetInnerHTML={{ __html: body }} />
+      {externalApiProvider &&
+        body &&
+        body
+          .split('\n')
+          .map((n, i) => <WhiteboardBody key={n + i}>{n}</WhiteboardBody>)}
+      {!externalApiProvider && body && (
+        <WhiteboardBody dangerouslySetInnerHTML={{ __html: body }} />
+      )}
     </WhiteboardContainerItem>
   );
 };

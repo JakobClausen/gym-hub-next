@@ -63,6 +63,7 @@ export type Mutation = {
   registerUser: User;
   loginUser: LoginResponse;
   logout: Scalars['Boolean'];
+  createWorkoutExternalApi: WorkoutExternalApi;
   createWorkout: Workout;
   createWorkoutSection: WorkoutSection;
 };
@@ -88,6 +89,11 @@ export type MutationLoginUserArgs = {
 };
 
 
+export type MutationCreateWorkoutExternalApiArgs = {
+  workoutExternalApiInput: WorkoutExternalApiInput;
+};
+
+
 export type MutationCreateWorkoutArgs = {
   workoutIntput: WorkoutInput;
 };
@@ -102,6 +108,7 @@ export type Query = {
   classes: Array<GymClass>;
   myGym: Gym;
   me: User;
+  getWorkoutExternalApi: WorkoutExternalApi;
   getWorkoutByDay: Workout;
   getWorkoutSection: WorkoutSection;
 };
@@ -153,10 +160,29 @@ export type Workout = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   type: Scalars['String'];
+  externalApiProvider?: Maybe<Scalars['String']>;
   dayOfTheWeek: Scalars['Float'];
   gymId: Scalars['Float'];
   gym: Gym;
   workoutSection?: Maybe<Array<WorkoutSection>>;
+};
+
+export type WorkoutExternalApi = {
+  __typename?: 'WorkoutExternalApi';
+  id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  token: Scalars['String'];
+  endpoint: Scalars['String'];
+  type: Scalars['String'];
+  gymId: Scalars['Float'];
+  gym: Gym;
+};
+
+export type WorkoutExternalApiInput = {
+  token: Scalars['String'];
+  endpoint: Scalars['String'];
+  type: Scalars['String'];
 };
 
 export type WorkoutInput = {
@@ -215,7 +241,7 @@ export type GetWorkoutQuery = (
   { __typename?: 'Query' }
   & { getWorkoutByDay: (
     { __typename?: 'Workout' }
-    & Pick<Workout, 'type'>
+    & Pick<Workout, 'type' | 'externalApiProvider'>
     & { workoutSection?: Maybe<Array<(
       { __typename?: 'WorkoutSection' }
       & Pick<WorkoutSection, 'title' | 'body' | 'order'>
@@ -316,6 +342,7 @@ export const GetWorkoutDocument = gql`
     query getWorkout($type: String!, $day: Float!) {
   getWorkoutByDay(type: $type, day: $day) {
     type
+    externalApiProvider
     workoutSection {
       title
       body
