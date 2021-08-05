@@ -9,7 +9,7 @@ export const formatGymClasses = (
   classes.map((gymClass) => {
     const { endTime, startTime } = gymClass;
     const isActive = clock >= startTime! && clock < endTime!;
-    const hasPassed = clock > endTime!;
+    const hasPassed = clock >= endTime!;
 
     return {
       ...gymClass,
@@ -23,6 +23,6 @@ export const calcGymClassCountdown = (endTime: string) => {
   const now = dayjs().valueOf();
   const dif = end - now;
   const minutes = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
-  if (minutes === 0) return null;
+  if (minutes <= 0) return null;
   return `${minutes + 1} min`;
 };

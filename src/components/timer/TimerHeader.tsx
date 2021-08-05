@@ -3,8 +3,8 @@ import {
   ClockContainer,
   ClockText,
   Container,
-  Logo,
 } from '../../styles/styledComponents/timer/header';
+import { Logo } from './Logo';
 
 interface TimerHeaderProps {
   clock: string;
@@ -16,7 +16,7 @@ export const TimerHeader: React.FC<TimerHeaderProps> = ({ clock }) => {
       <ClockContainer>
         <ClockText>{clock}</ClockText>
       </ClockContainer>
-      <Logo>JAKOB</Logo>
+      <Logo />
     </Container>
   );
 };

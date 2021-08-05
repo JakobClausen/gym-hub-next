@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const ClockContainer = styled.div`
   position: absolute;
-  left: 30px;
+  left: 20px;
   top: 50%;
   height: 50px;
   margin-top: -25px;
@@ -23,7 +23,7 @@ export const ClockText = styled.div`
   font-size: 32px;
 `;
 
-export const Logo = styled.h1`
-  color: white;
-  font-size: 100px;
+export const LogoImg = styled.img`
+  max-width: 40%;
+  max-height: 100%;
 `;

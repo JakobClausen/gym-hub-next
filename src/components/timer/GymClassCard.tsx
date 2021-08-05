@@ -31,7 +31,7 @@ export const GymClassCard: React.FC<GymClassCardProps> = ({
       setClassCountdown(classCountdown);
     }
     if (!isActive) {
-      setClassCountdown(classCountdown);
+      setClassCountdown(null);
     }
   }, [isActive, clock]);
   return (

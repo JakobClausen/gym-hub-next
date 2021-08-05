@@ -19,39 +19,6 @@ import { formatGymClasses } from '../utils/timerUtils';
 
 interface TimerProps {}
 
-const fakeClasses: Partial<GymClass>[] = [
-  {
-    type: 'Crossfit',
-    startTime: '11:00',
-    endTime: '12:00',
-  },
-  {
-    type: 'Crossfit',
-    startTime: '12:00',
-    endTime: '13:00',
-  },
-  {
-    type: 'Crossfit',
-    startTime: '13:00',
-    endTime: '14:00',
-  },
-  {
-    type: 'Gymnastics',
-    startTime: '15:00',
-    endTime: '15:25 ',
-  },
-  {
-    type: 'Crossfit',
-    startTime: '19:00',
-    endTime: '19:53',
-  },
-  {
-    type: 'Crossfit',
-    startTime: '21:00',
-    endTime: '22:00',
-  },
-];
-
 const Timer: React.FC<TimerProps> = ({}) => {
   const [classes, setClasses] = useState<null | Partial<GymClass>[]>(null);
 
@@ -109,3 +76,36 @@ const Timer: React.FC<TimerProps> = ({}) => {
 };
 
 export default Timer;
+
+const fakeClasses: Partial<GymClass>[] = [
+  {
+    type: 'Crossfit',
+    startTime: '09:19',
+    endTime: '09:20',
+  },
+  {
+    type: 'Crossfit',
+    startTime: '09:21',
+    endTime: '09:22',
+  },
+  {
+    type: 'Crossfit',
+    startTime: '13:00',
+    endTime: '14:00',
+  },
+  {
+    type: 'Gymnastics',
+    startTime: '15:00',
+    endTime: '15:25 ',
+  },
+  {
+    type: 'Crossfit',
+    startTime: '19:00',
+    endTime: '19:53',
+  },
+  {
+    type: 'Crossfit',
+    startTime: '21:00',
+    endTime: '22:00',
+  },
+];
