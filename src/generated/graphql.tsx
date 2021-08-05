@@ -30,7 +30,11 @@ export type Gym = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   name: Scalars['String'];
-  user: User;
+  logoUrl: Scalars['String'];
+  user: Array<User>;
+  gymClass: Array<GymClass>;
+  workout: Array<Workout>;
+  workoutExternalApi: WorkoutExternalApi;
 };
 
 export type GymClass = {
@@ -106,8 +110,8 @@ export type MutationCreateWorkoutSectionArgs = {
 export type Query = {
   __typename?: 'Query';
   classes: Array<GymClass>;
-  myGym: Gym;
-  me: User;
+  getGym: Gym;
+  getUser: User;
   getWorkoutExternalApi: WorkoutExternalApi;
   getWorkoutByDay: Workout;
   getWorkoutSection: WorkoutSection;
@@ -187,6 +191,7 @@ export type WorkoutExternalApiInput = {
 
 export type WorkoutInput = {
   type?: Maybe<Scalars['String']>;
+  externalApiProvider?: Maybe<Scalars['String']>;
   dayOfTheWeek: Scalars['Float'];
 };
 
@@ -231,6 +236,28 @@ export type LogoutMutation = (
   & Pick<Mutation, 'logout'>
 );
 
+export type GetGymQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetGymQuery = (
+  { __typename?: 'Query' }
+  & { getGym: (
+    { __typename?: 'Gym' }
+    & Pick<Gym, 'name' | 'logoUrl'>
+  ) }
+);
+
+export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserQuery = (
+  { __typename?: 'Query' }
+  & { getUser: (
+    { __typename?: 'User' }
+    & Pick<User, 'firstName'>
+  ) }
+);
+
 export type GetWorkoutQueryVariables = Exact<{
   type: Scalars['String'];
   day: Scalars['Float'];
@@ -260,17 +287,6 @@ export type GetGymClassesQuery = (
     { __typename?: 'GymClass' }
     & Pick<GymClass, 'type' | 'startTime' | 'endTime'>
   )> }
-);
-
-export type MeQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MeQuery = (
-  { __typename?: 'Query' }
-  & { me: (
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'firstName'>
-  ) }
 );
 
 
@@ -338,6 +354,75 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const GetGymDocument = gql`
+    query getGym {
+  getGym {
+    name
+    logoUrl
+  }
+}
+    `;
+
+/**
+ * __useGetGymQuery__
+ *
+ * To run a query within a React component, call `useGetGymQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetGymQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetGymQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetGymQuery(baseOptions?: Apollo.QueryHookOptions<GetGymQuery, GetGymQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetGymQuery, GetGymQueryVariables>(GetGymDocument, options);
+      }
+export function useGetGymLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetGymQuery, GetGymQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetGymQuery, GetGymQueryVariables>(GetGymDocument, options);
+        }
+export type GetGymQueryHookResult = ReturnType<typeof useGetGymQuery>;
+export type GetGymLazyQueryHookResult = ReturnType<typeof useGetGymLazyQuery>;
+export type GetGymQueryResult = Apollo.QueryResult<GetGymQuery, GetGymQueryVariables>;
+export const GetUserDocument = gql`
+    query getUser {
+  getUser {
+    firstName
+  }
+}
+    `;
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUserQuery(baseOptions?: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+      }
+export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+        }
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
 export const GetWorkoutDocument = gql`
     query getWorkout($type: String!, $day: Float!) {
   getWorkoutByDay(type: $type, day: $day) {
@@ -417,38 +502,3 @@ export function useGetGymClassesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetGymClassesQueryHookResult = ReturnType<typeof useGetGymClassesQuery>;
 export type GetGymClassesLazyQueryHookResult = ReturnType<typeof useGetGymClassesLazyQuery>;
 export type GetGymClassesQueryResult = Apollo.QueryResult<GetGymClassesQuery, GetGymClassesQueryVariables>;
-export const MeDocument = gql`
-    query me {
-  me {
-    id
-    firstName
-  }
-}
-    `;
-
-/**
- * __useMeQuery__
- *
- * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
- * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useMeQuery({
- *   variables: {
- *   },
- * });
- */
-export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
-      }
-export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
-        }
-export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
-export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
-export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;

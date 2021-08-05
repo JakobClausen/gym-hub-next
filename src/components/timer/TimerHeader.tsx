@@ -8,15 +8,16 @@ import { Logo } from './Logo';
 
 interface TimerHeaderProps {
   clock: string;
+  logo: string;
 }
 
-export const TimerHeader: React.FC<TimerHeaderProps> = ({ clock }) => {
+export const TimerHeader: React.FC<TimerHeaderProps> = ({ clock, logo }) => {
   return (
     <Container>
       <ClockContainer>
         <ClockText>{clock}</ClockText>
       </ClockContainer>
-      <Logo />
+      {logo && <Logo src={logo} />}
     </Container>
   );
 };

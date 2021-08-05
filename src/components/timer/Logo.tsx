@@ -1,10 +1,10 @@
 import React from 'react';
 import { LogoImg } from '../../styles/styledComponents/timer/header';
 
-interface LogoProps {}
+interface LogoProps {
+  src: string;
+}
 
-export const Logo: React.FC<LogoProps> = ({}) => {
-  return (
-    <LogoImg src="https://raw.githubusercontent.com/JakobClausen/ex-timer-web/master/src/assets/icons/logo_fysiken.png" />
-  );
+export const Logo: React.FC<LogoProps> = ({ src }) => {
+  return <LogoImg src={src} />;
 };

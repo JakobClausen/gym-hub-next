@@ -4,6 +4,7 @@ import { Loader } from '../components/Loader';
 import { ClassList } from '../components/timer/ClassList';
 import { TimerHeader } from '../components/timer/TimerHeader';
 import { Whiteboard } from '../components/timer/Whiteboard';
+import { useAppContext } from '../context/AppContext';
 import {
   GetWorkoutQuery,
   GymClass,
@@ -20,6 +21,7 @@ import { formatGymClasses } from '../utils/timerUtils';
 interface TimerProps {}
 
 const Timer: React.FC<TimerProps> = ({}) => {
+  const { gym } = useAppContext();
   const [classes, setClasses] = useState<null | Partial<GymClass>[]>(null);
 
   const [clock, setClock] = useState<string>(dayjs().format('HH:mm'));
@@ -65,7 +67,7 @@ const Timer: React.FC<TimerProps> = ({}) => {
   return (
     <TimerContainer>
       <VerticalGrid>
-        <TimerHeader clock={clock} />
+        <TimerHeader clock={clock} logo={gym!.logoUrl} />
         <HorizontalGrid>
           <ClassList classes={classes} clock={clock} />
           {workout && <Whiteboard workout={workout} />}

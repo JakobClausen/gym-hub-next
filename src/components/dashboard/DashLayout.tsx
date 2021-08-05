@@ -1,13 +1,13 @@
-import { SpaceBetween } from "../../styles/styledComponents/align";
-import { H4 } from "../../styles/styledComponents/titles";
-import { Avatar } from "../../styles/styledComponents/image";
+import Link from 'next/link';
+import { SpaceBetween } from '../../styles/styledComponents/align';
+import { Avatar } from '../../styles/styledComponents/image';
 import {
+  BottomNav,
   LayoutContainer,
   TopLayout,
-  BottomNav,
-} from "../../styles/styledComponents/layout";
-import { DashNavButton } from "./DashNavButton";
-import Link from "next/link";
+} from '../../styles/styledComponents/layout';
+import { H4 } from '../../styles/styledComponents/titles';
+import { DashNavButton } from './DashNavButton';
 
 interface DashLayoutProps {}
 
@@ -24,22 +24,22 @@ export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
       <BottomNav>
         <SpaceBetween>
           <Link as="/dashboard" href="/dashboard">
-            <a style={{ width: "100%" }}>
+            <a style={{ width: '100%' }}>
               <DashNavButton src="/icons/dashboard.svg" />
             </a>
           </Link>
           <Link as="/dashboard/whiteboard" href="/dashboard/whiteboard">
-            <a style={{ width: "100%" }}>
+            <a style={{ width: '100%' }}>
               <DashNavButton src="/icons/whiteboard.png" />
             </a>
           </Link>
           <Link as="/dashboard/remote" href="/dashboard/remote">
-            <a style={{ width: "100%" }}>
+            <a style={{ width: '100%' }}>
               <DashNavButton src="/icons/remote.png" />
             </a>
           </Link>
           <Link as="/dashboard/settings" href="/dashboard/settings">
-            <a style={{ width: "100%" }}>
+            <a style={{ width: '100%' }}>
               <DashNavButton src="/icons/settings.png" />
             </a>
           </Link>
