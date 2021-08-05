@@ -1,6 +1,6 @@
-import { DashLayout } from "../../components/dashboard/DashLayout";
-import { DashContentContainer } from "../../styles/styledComponents/dashboard";
-import { H4 } from "../../styles/styledComponents/titles";
+import { DashLayout } from '../../components/dashboard/DashLayout';
+import { DashContentContainer } from '../../styles/styledComponents/dashboard';
+import { H4 } from '../../styles/styledComponents/titles';
 
 interface RemoteProps {}
 
