@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const IconContainer = styled.div`
   height: 10vh;
@@ -6,6 +6,11 @@ export const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const ButtonLink = styled.a`
+  width: 100%;
+  cursor: pointer;
 `;
 
 export const DashContentContainer = styled.div`
