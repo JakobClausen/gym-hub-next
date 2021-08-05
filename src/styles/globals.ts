@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -14,7 +14,7 @@ body {
 }
 
 * {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Archivo', sans-serif;
   box-sizing: border-box;
 }
 `;
