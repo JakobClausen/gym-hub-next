@@ -14,7 +14,7 @@ import { WeekdayOption, Weekdays } from '../../types/schedule';
 interface ScheduleProps {}
 
 const Schedule: React.FC<ScheduleProps> = ({}) => {
-  const [day, setDay] = useState(dayjs().day());
+  const [selectedDay, setSelectedDay] = useState(dayjs().day());
   const [selectedOption, setSelectedOption] = useState<WeekdayOption>(
     WeekdaysSelectOptions[dayjs().day()]
   );
@@ -23,19 +23,13 @@ const Schedule: React.FC<ScheduleProps> = ({}) => {
   >(null);
 
   const [getGymClasses, { loading }] = useGetGymClassesLazyQuery({
-    variables: { day },
+    variables: { day: selectedDay },
     onCompleted: (data) => data && setSchedule(data?.classes),
   });
 
   useEffect(() => {
     getGymClasses();
-  }, [day]);
-
-  useEffect(() => {
-    if (schedule) {
-      console.log(schedule);
-    }
-  }, [schedule]);
+  }, [selectedDay]);
 
   if (loading) return <Loader />;
   return (
@@ -50,14 +44,14 @@ const Schedule: React.FC<ScheduleProps> = ({}) => {
             onChange={(selectedOption) => {
               if (selectedOption) {
                 setSelectedOption(selectedOption);
-                setDay(selectedOption?.value);
+                setSelectedDay(selectedOption?.value);
               }
             }}
             options={WeekdaysSelectOptions}
           />
         </Container>
-        <H4 style={{ marginTop: '20px' }}>{Weekdays[day]}</H4>
-        <ScheduleList list={schedule} />
+        <H4 style={{ marginTop: '20px' }}>{Weekdays[selectedDay]}</H4>
+        <ScheduleList list={schedule} selectedDay={selectedDay} />
       </DashContentContainer>
     </DashLayout>
   );
