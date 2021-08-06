@@ -9,11 +9,16 @@ export const Weekdays = [
 ];
 
 export enum WeekdaysIndex {
-  SUNDAY,
-  MONDAY,
-  TUESDAY,
-  WEDNESDAY,
-  THURSDAY,
-  FRIDAY,
-  SATURDAY,
+  SUNDAY = 'Sunday',
+  MONDAY = 'Monday',
+  TUESDAY = 'Tuesday',
+  WEDNESDAY = 'Wednesday',
+  THURSDAY = 'Thursday',
+  FRIDAY = 'Friday',
+  SATURDAY = 'Saturday',
 }
+
+export type WeekdayOption = {
+  value: number;
+  label: keyof typeof WeekdaysIndex;
+};

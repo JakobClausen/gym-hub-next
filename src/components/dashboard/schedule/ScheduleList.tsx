@@ -7,15 +7,19 @@ import {
 } from '../../../styles/styledComponents/schedule';
 
 interface ScheduleListProps {
-  list: Pick<GymClass, 'type' | 'startTime' | 'endTime'>[];
+  list: null | Pick<GymClass, 'type' | 'startTime' | 'endTime'>[];
 }
 
 export const ScheduleList: React.FC<ScheduleListProps> = ({ list }) => {
   return (
     <Container>
-      {list.map((item) => (
-        <Card key={item.startTime}>{item.type}</Card>
-      ))}
+      {list && list.length > 0 ? (
+        list.map((item) => <Card key={item.startTime}>{item.type}</Card>)
+      ) : (
+        <>
+          <p style={{ color: 'white' }}>No Classes today</p>
+        </>
+      )}
       <NewScheduleBtn>+</NewScheduleBtn>
     </Container>
   );
