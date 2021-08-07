@@ -33,3 +33,15 @@ export const NewScheduleBtn = styled.div`
   font-size: 60px;
   cursor: pointer;
 `;
+
+export const InputContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
+export const InputContainerFlex = styled.div`
+  width: 100%;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+`;

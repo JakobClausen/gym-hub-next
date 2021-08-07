@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import 'semantic-ui-css/semantic.min.css';
 import { ThemeProvider } from 'styled-components';
 import client from '../apollo/client';
 import { RefreshHOC } from '../components/auth/RefreshHOC';
