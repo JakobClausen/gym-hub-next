@@ -45,3 +45,10 @@ export const InputContainerFlex = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 `;
+
+export const BtnContainerFlex = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 65% auto;
+  gap: 10px;
+`;

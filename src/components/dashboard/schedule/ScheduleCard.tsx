@@ -1,4 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
@@ -7,6 +9,7 @@ import {
   useUpdateGymClassMutation,
 } from '../../../generated/graphql';
 import {
+  BtnContainerFlex,
   InputContainer,
   InputContainerFlex,
 } from '../../../styles/styledComponents/schedule';
@@ -31,8 +34,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
   });
 
   const handleUpdateGymClass = (values: Values) => {
-    console.log(values);
-    // updateGymClass({ variables: { id: +gymClassState.id, ...values } });
+    updateGymClass({ variables: { id: +gymClassState.id, ...values } });
   };
 
   return (
@@ -41,7 +43,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
       initial={{ borderRadius: 10 }}
       style={{
         width: '100%',
-        backgroundColor: '#888888',
+        backgroundColor: '#FBFAF5',
         margin: '20px 0px',
         listStyleType: 'none',
         cursor: 'pointer',
@@ -103,9 +105,9 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
                   >
                     <InputContainer>
                       <TextField
-                        id={'type'}
-                        label={'type'}
-                        name={'type'}
+                        id="type"
+                        name="type"
+                        label="Type"
                         variant="filled"
                         fullWidth
                         value={values.type}
@@ -113,29 +115,60 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
                       />
                     </InputContainer>
                     <InputContainerFlex>
-                      {/* <InputField
-                        name="startTime"
-                        placeholder="17:00"
+                      <TextField
+                        id="startTime"
+                        name="start time"
+                        label="Start time"
+                        variant="filled"
+                        type="time"
                         value={values.startTime}
-                        handleChange={handleChange}
+                        onChange={handleChange}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 300,
+                        }}
                       />
-                      <InputField
-                        name="endTime"
-                        placeholder="18:00"
+                      <TextField
+                        id="endTime"
+                        name="end time"
+                        label="End time"
+                        variant="filled"
+                        type="time"
                         value={values.endTime}
-                        handleChange={handleChange}
-                      /> */}
+                        onChange={handleChange}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 300,
+                        }}
+                      />
                     </InputContainerFlex>
+                    <BtnContainerFlex>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                        type="submit"
+                        disabled={isSubmitting}
+                        startIcon={<SaveIcon />}
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        fullWidth
+                        type="submit"
+                        disabled={isSubmitting}
+                        startIcon={<DeleteIcon />}
+                      >
+                        Delete
+                      </Button>
+                    </BtnContainerFlex>
                   </motion.div>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    fullWidth
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
-                    Submit
-                  </Button>
                 </Form>
               )}
             </Formik>
