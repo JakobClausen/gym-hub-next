@@ -1,8 +1,11 @@
 import { Form, Formik, FormikHelpers } from 'formik';
 import { SubmitButton } from 'formik-semantic-ui-react';
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useState } from 'react';
-import { GymClass } from '../../../generated/graphql';
+import React, { useEffect, useState } from 'react';
+import {
+  GymClass,
+  useUpdateGymClassMutation,
+} from '../../../generated/graphql';
 import {
   InputContainer,
   InputContainerFlex,
@@ -10,19 +13,34 @@ import {
 import { InputField } from './InputField';
 
 interface ScheduleCardProps {
-  gymClass: Pick<GymClass, 'type' | 'startTime' | 'endTime'>;
+  gymClass: Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>;
 }
 
 interface Values {
   type: string;
-  start: string;
-  end: string;
+  startTime: string;
+  endTime: string;
 }
 
 export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
+  const [gymClassState, setGymClassState] = useState(gymClass);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen(!isOpen);
+  const [updateGymClass, { error }] = useUpdateGymClassMutation({
+    onCompleted: (data) => data && setGymClassState(data.updateGymClass),
+  });
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+  }, [error]);
+
+  const handleUpdateGymClass = (values: Values) => {
+    updateGymClass({ variables: { id: +gymClassState.id, ...values } });
+  };
+
   return (
     <motion.li
       layout
@@ -42,9 +60,9 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
           padding: '10px',
         }}
       >
-        <p>{gymClass.type}</p>
-        <p>{gymClass.startTime}</p>
-        <p>{gymClass.endTime}</p>
+        <p>{gymClassState.type}</p>
+        <p>{gymClassState.startTime}</p>
+        <p>{gymClassState.endTime}</p>
       </motion.div>
       <AnimatePresence>
         {isOpen && (
@@ -60,18 +78,15 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
           >
             <Formik
               initialValues={{
-                type: gymClass.type,
-                start: gymClass.startTime,
-                end: gymClass.endTime,
+                type: gymClassState.type,
+                startTime: gymClassState.startTime,
+                endTime: gymClassState.endTime,
               }}
               onSubmit={(
                 values: Values,
                 { setSubmitting }: FormikHelpers<Values>
               ) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  setSubmitting(false);
-                }, 500);
+                handleUpdateGymClass(values);
               }}
             >
               <Form>
@@ -89,8 +104,8 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
                     <InputField name="type" placeholder="Type" />
                   </InputContainer>
                   <InputContainerFlex>
-                    <InputField name="start" placeholder="17:00" />
-                    <InputField name="end" placeholder="18:00" />
+                    <InputField name="startTime" placeholder="17:00" />
+                    <InputField name="endTime" placeholder="18:00" />
                   </InputContainerFlex>
                   <SubmitButton fluid primary>
                     Submit

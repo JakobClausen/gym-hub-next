@@ -62,6 +62,7 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  updateGymClass: GymClass;
   createGymClass: GymClass;
   registerGym: Gym;
   registerUser: User;
@@ -70,6 +71,12 @@ export type Mutation = {
   createWorkoutExternalApi: WorkoutExternalApi;
   createWorkout: Workout;
   createWorkoutSection: WorkoutSection;
+};
+
+
+export type MutationUpdateGymClassArgs = {
+  updateGymClass: UpdateGymClass;
+  id: Scalars['Float'];
 };
 
 
@@ -119,7 +126,7 @@ export type Query = {
 
 
 export type QueryClassesArgs = {
-  day?: Maybe<Scalars['Float']>;
+  day: Scalars['Float'];
 };
 
 
@@ -143,6 +150,12 @@ export type Register = {
 
 export type RegisterGym = {
   name: Scalars['String'];
+};
+
+export type UpdateGymClass = {
+  type?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']>;
+  endTime?: Maybe<Scalars['String']>;
 };
 
 export type User = {
@@ -236,6 +249,22 @@ export type LogoutMutation = (
   & Pick<Mutation, 'logout'>
 );
 
+export type UpdateGymClassMutationVariables = Exact<{
+  id: Scalars['Float'];
+  startTime?: Maybe<Scalars['String']>;
+  endTime?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+}>;
+
+
+export type UpdateGymClassMutation = (
+  { __typename?: 'Mutation' }
+  & { updateGymClass: (
+    { __typename?: 'GymClass' }
+    & Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>
+  ) }
+);
+
 export type GetGymQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -285,7 +314,7 @@ export type GetGymClassesQuery = (
   { __typename?: 'Query' }
   & { classes: Array<(
     { __typename?: 'GymClass' }
-    & Pick<GymClass, 'type' | 'startTime' | 'endTime'>
+    & Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>
   )> }
 );
 
@@ -354,6 +383,48 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const UpdateGymClassDocument = gql`
+    mutation UpdateGymClass($id: Float!, $startTime: String, $endTime: String, $type: String) {
+  updateGymClass(
+    id: $id
+    updateGymClass: {startTime: $startTime, endTime: $endTime, type: $type}
+  ) {
+    id
+    type
+    startTime
+    endTime
+  }
+}
+    `;
+export type UpdateGymClassMutationFn = Apollo.MutationFunction<UpdateGymClassMutation, UpdateGymClassMutationVariables>;
+
+/**
+ * __useUpdateGymClassMutation__
+ *
+ * To run a mutation, you first call `useUpdateGymClassMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateGymClassMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateGymClassMutation, { data, loading, error }] = useUpdateGymClassMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      startTime: // value for 'startTime'
+ *      endTime: // value for 'endTime'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useUpdateGymClassMutation(baseOptions?: Apollo.MutationHookOptions<UpdateGymClassMutation, UpdateGymClassMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateGymClassMutation, UpdateGymClassMutationVariables>(UpdateGymClassDocument, options);
+      }
+export type UpdateGymClassMutationHookResult = ReturnType<typeof useUpdateGymClassMutation>;
+export type UpdateGymClassMutationResult = Apollo.MutationResult<UpdateGymClassMutation>;
+export type UpdateGymClassMutationOptions = Apollo.BaseMutationOptions<UpdateGymClassMutation, UpdateGymClassMutationVariables>;
 export const GetGymDocument = gql`
     query getGym {
   getGym {
@@ -468,6 +539,7 @@ export type GetWorkoutQueryResult = Apollo.QueryResult<GetWorkoutQuery, GetWorko
 export const GetGymClassesDocument = gql`
     query getGymClasses($day: Float!) {
   classes(day: $day) {
+    id
     type
     startTime
     endTime

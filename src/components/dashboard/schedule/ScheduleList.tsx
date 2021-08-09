@@ -10,7 +10,7 @@ import { Weekdays } from '../../../types/schedule';
 import { ScheduleCard } from './ScheduleCard';
 
 interface ScheduleListProps {
-  list: null | Pick<GymClass, 'type' | 'startTime' | 'endTime'>[];
+  list: null | Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>[];
   selectedDay: number;
 }
 

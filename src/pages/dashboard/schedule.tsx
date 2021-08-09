@@ -19,7 +19,7 @@ const Schedule: React.FC<ScheduleProps> = ({}) => {
     WeekdaysSelectOptions[dayjs().day()]
   );
   const [schedule, setSchedule] = useState<
-    null | Pick<GymClass, 'type' | 'startTime' | 'endTime'>[]
+    null | Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>[]
   >(null);
 
   const [getGymClasses, { loading }] = useGetGymClassesLazyQuery({
