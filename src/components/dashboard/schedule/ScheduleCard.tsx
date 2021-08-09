@@ -78,6 +78,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
                 startTime: gymClassState.startTime,
                 endTime: gymClassState.endTime,
               }}
+              // validationSchema={scheduleValidation}
               onSubmit={(
                 values: Values,
                 { setSubmitting }: FormikHelpers<Values>
@@ -117,7 +118,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
                     <InputContainerFlex>
                       <TextField
                         id="startTime"
-                        name="start time"
+                        name="startTime"
                         label="Start time"
                         variant="filled"
                         type="time"
@@ -132,7 +133,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
                       />
                       <TextField
                         id="endTime"
-                        name="end time"
+                        name="endTime"
                         label="End time"
                         variant="filled"
                         type="time"
