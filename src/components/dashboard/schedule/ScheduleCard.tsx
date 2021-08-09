@@ -1,7 +1,7 @@
+import { Button, TextField } from '@material-ui/core';
 import { Form, Formik, FormikHelpers } from 'formik';
-import { SubmitButton } from 'formik-semantic-ui-react';
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   GymClass,
   useUpdateGymClassMutation,
@@ -10,7 +10,6 @@ import {
   InputContainer,
   InputContainerFlex,
 } from '../../../styles/styledComponents/schedule';
-import { InputField } from './InputField';
 
 interface ScheduleCardProps {
   gymClass: Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>;
@@ -31,14 +30,9 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
     onCompleted: (data) => data && setGymClassState(data.updateGymClass),
   });
 
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
-  }, [error]);
-
   const handleUpdateGymClass = (values: Values) => {
-    updateGymClass({ variables: { id: +gymClassState.id, ...values } });
+    console.log(values);
+    // updateGymClass({ variables: { id: +gymClassState.id, ...values } });
   };
 
   return (
@@ -87,31 +81,63 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
                 { setSubmitting }: FormikHelpers<Values>
               ) => {
                 handleUpdateGymClass(values);
+                setSubmitting(false);
               }}
             >
-              <Form>
-                <motion.div
-                  layout
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
+              {({ values, handleChange, handleSubmit, isSubmitting }) => (
+                <Form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSubmit();
                   }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
                 >
-                  <InputContainer>
-                    <InputField name="type" placeholder="Type" />
-                  </InputContainer>
-                  <InputContainerFlex>
-                    <InputField name="startTime" placeholder="17:00" />
-                    <InputField name="endTime" placeholder="18:00" />
-                  </InputContainerFlex>
-                  <SubmitButton fluid primary>
+                  <motion.div
+                    layout
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <InputContainer>
+                      <TextField
+                        id={'type'}
+                        label={'type'}
+                        name={'type'}
+                        variant="filled"
+                        fullWidth
+                        value={values.type}
+                        onChange={handleChange}
+                      />
+                    </InputContainer>
+                    <InputContainerFlex>
+                      {/* <InputField
+                        name="startTime"
+                        placeholder="17:00"
+                        value={values.startTime}
+                        handleChange={handleChange}
+                      />
+                      <InputField
+                        name="endTime"
+                        placeholder="18:00"
+                        value={values.endTime}
+                        handleChange={handleChange}
+                      /> */}
+                    </InputContainerFlex>
+                  </motion.div>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
                     Submit
-                  </SubmitButton>
-                </motion.div>
-              </Form>
+                  </Button>
+                </Form>
+              )}
             </Formik>
           </motion.div>
         )}
