@@ -14,7 +14,7 @@ export const ButtonLink = styled.a`
 `;
 
 export const DashContentContainer = styled.div`
-  margin-top: 10vh;
+  margin: 10vh 0px;
   width: 100%;
   height: auto;
   background: ${(props) => props.theme.colors.primary};

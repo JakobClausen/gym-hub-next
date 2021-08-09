@@ -60,9 +60,9 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
           >
             <Formik
               initialValues={{
-                type: '',
-                start: '',
-                end: '',
+                type: gymClass.type,
+                start: gymClass.startTime,
+                end: gymClass.endTime,
               }}
               onSubmit={(
                 values: Values,
