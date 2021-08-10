@@ -1,7 +1,8 @@
+import { QueryLazyOptions } from '@apollo/client';
 import dayjs from 'dayjs';
 import { AnimateSharedLayout, motion } from 'framer-motion';
 import React from 'react';
-import { DeleteGymClassMutationFn, GymClass } from '../../../generated/graphql';
+import { Exact, GymClass } from '../../../generated/graphql';
 import {
   Container,
   NewScheduleBtn,
@@ -12,13 +13,21 @@ import { ScheduleCard } from './ScheduleCard';
 interface ScheduleListProps {
   list: null | Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>[];
   selectedDay: number;
-  deleteGymClass: DeleteGymClassMutationFn;
+  getGymClasses: (
+    options?:
+      | QueryLazyOptions<
+          Exact<{
+            day: number;
+          }>
+        >
+      | undefined
+  ) => void;
 }
 
 export const ScheduleList: React.FC<ScheduleListProps> = ({
   list,
   selectedDay,
-  deleteGymClass,
+  getGymClasses,
 }) => {
   const dayTitle =
     selectedDay === dayjs().day() ? 'today' : `on ${Weekdays[selectedDay]}`;
@@ -32,7 +41,7 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
                 <ScheduleCard
                   key={item.id}
                   gymClass={item}
-                  deleteGymClass={deleteGymClass}
+                  getGymClasses={getGymClasses}
                 ></ScheduleCard>
               ))}
             </motion.ul>

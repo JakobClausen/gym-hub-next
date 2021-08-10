@@ -1,3 +1,4 @@
+import { QueryLazyOptions } from '@apollo/client';
 import { Button, TextField } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
@@ -5,8 +6,9 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
 import {
-  DeleteGymClassMutationFn,
+  Exact,
   GymClass,
+  useDeleteGymClassMutation,
   useUpdateGymClassMutation,
 } from '../../../generated/graphql';
 import {
@@ -17,7 +19,15 @@ import {
 
 interface ScheduleCardProps {
   gymClass: Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>;
-  deleteGymClass: DeleteGymClassMutationFn;
+  getGymClasses: (
+    options?:
+      | QueryLazyOptions<
+          Exact<{
+            day: number;
+          }>
+        >
+      | undefined
+  ) => void;
 }
 
 interface Values {
@@ -28,10 +38,14 @@ interface Values {
 
 export const ScheduleCard: React.FC<ScheduleCardProps> = ({
   gymClass,
-  deleteGymClass,
+  getGymClasses,
 }) => {
   const [gymClassState, setGymClassState] = useState(gymClass);
   const [isOpen, setIsOpen] = useState(false);
+
+  const [deleteGymClass] = useDeleteGymClassMutation({
+    onCompleted: (data) => data?.deleteGymClass && getGymClasses(),
+  });
 
   const toggleOpen = () => setIsOpen(!isOpen);
   const [updateGymClass, { error }] = useUpdateGymClassMutation({
