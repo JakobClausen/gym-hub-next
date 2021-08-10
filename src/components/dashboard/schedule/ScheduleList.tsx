@@ -3,11 +3,9 @@ import dayjs from 'dayjs';
 import { AnimateSharedLayout, motion } from 'framer-motion';
 import React from 'react';
 import { Exact, GymClass } from '../../../generated/graphql';
-import {
-  Container,
-  NewScheduleBtn,
-} from '../../../styles/styledComponents/schedule';
+import { Container } from '../../../styles/styledComponents/schedule';
 import { Weekdays } from '../../../types/schedule';
+import { AddGymClassBtn } from './AddGymClassBtn';
 import { ScheduleCard } from './ScheduleCard';
 
 interface ScheduleListProps {
@@ -35,26 +33,19 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
     <Container>
       <AnimateSharedLayout>
         {list && list.length > 0 ? (
-          <>
-            <motion.ul layout style={{ padding: 0 }}>
-              {list.map((item) => (
-                <ScheduleCard
-                  key={item.id}
-                  gymClass={item}
-                  getGymClasses={getGymClasses}
-                ></ScheduleCard>
-              ))}
-            </motion.ul>
-            <motion.div layout>
-              <NewScheduleBtn>+</NewScheduleBtn>
-            </motion.div>
-          </>
+          <motion.ul layout style={{ padding: 0 }}>
+            {list.map((item) => (
+              <ScheduleCard
+                key={item.id}
+                gymClass={item}
+                getGymClasses={getGymClasses}
+              ></ScheduleCard>
+            ))}
+          </motion.ul>
         ) : (
-          <>
-            <p style={{ color: 'white' }}>{`No Classes ${dayTitle}`}</p>
-            <NewScheduleBtn>+</NewScheduleBtn>
-          </>
+          <p style={{ color: 'white' }}>{`No Classes ${dayTitle}`}</p>
         )}
+        <AddGymClassBtn />
       </AnimateSharedLayout>
     </Container>
   );

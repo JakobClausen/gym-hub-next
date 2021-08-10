@@ -52,3 +52,16 @@ export const BtnContainerFlex = styled.div`
   grid-template-columns: 65% auto;
   gap: 10px;
 `;
+
+export const CardLoader = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000000;
+  opacity: 0.4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

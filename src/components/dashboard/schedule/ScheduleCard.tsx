@@ -16,6 +16,8 @@ import {
   InputContainer,
   InputContainerFlex,
 } from '../../../styles/styledComponents/schedule';
+import { scheduleValidation } from '../../../validation/scheduleValidation';
+import { ScheduleCardLoader } from './ScheduleCardLoader';
 
 interface ScheduleCardProps {
   gymClass: Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>;
@@ -52,9 +54,8 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
     onCompleted: (data) => data && setGymClassState(data.updateGymClass),
   });
 
-  const handleUpdateGymClass = (values: Values) => {
+  const handleUpdateGymClass = async (values: Values) =>
     updateGymClass({ variables: { id: +gymClassState.id, ...values } });
-  };
 
   const handleDeleteGymClass = () => {
     toggleOpen();
@@ -74,6 +75,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
         margin: '20px 0px',
         listStyleType: 'none',
         cursor: 'pointer',
+        position: 'relative',
       }}
     >
       <motion.div
@@ -83,9 +85,12 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
           padding: '10px',
         }}
       >
-        <p>{gymClassState.type}</p>
-        <p>{gymClassState.startTime}</p>
-        <p>{gymClassState.endTime}</p>
+        <motion.p style={{ margin: '0px 0px 10px 0px' }}>
+          {gymClassState.type}
+        </motion.p>
+        <motion.p
+          style={{ fontWeight: 'bold', margin: '0px' }}
+        >{`${gymClassState.startTime} - ${gymClassState.endTime}`}</motion.p>
       </motion.div>
       <AnimatePresence>
         {isOpen && (
@@ -105,99 +110,112 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 startTime: gymClassState.startTime,
                 endTime: gymClassState.endTime,
               }}
-              // validationSchema={scheduleValidation}
-              onSubmit={(
+              validationSchema={scheduleValidation}
+              onSubmit={async (
                 values: Values,
                 { setSubmitting }: FormikHelpers<Values>
               ) => {
-                handleUpdateGymClass(values);
-                setSubmitting(false);
+                const res = await handleUpdateGymClass(values);
+                if (res.data?.updateGymClass) {
+                  setSubmitting(false);
+                }
               }}
             >
               {({ values, handleChange, handleSubmit, isSubmitting }) => (
-                <Form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleSubmit();
-                  }}
-                >
-                  <motion.div
-                    layout
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
+                <>
+                  <Form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleSubmit();
                     }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
                   >
-                    <InputContainer>
-                      <TextField
-                        id="type"
-                        name="type"
-                        label="Type"
-                        variant="filled"
-                        fullWidth
-                        value={values.type}
-                        onChange={handleChange}
-                      />
-                    </InputContainer>
-                    <InputContainerFlex>
-                      <TextField
-                        id="startTime"
-                        name="startTime"
-                        label="Start time"
-                        variant="filled"
-                        type="time"
-                        value={values.startTime}
-                        onChange={handleChange}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        inputProps={{
-                          step: 300,
-                        }}
-                      />
-                      <TextField
-                        id="endTime"
-                        name="endTime"
-                        label="End time"
-                        variant="filled"
-                        type="time"
-                        value={values.endTime}
-                        onChange={handleChange}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        inputProps={{
-                          step: 300,
-                        }}
-                      />
-                    </InputContainerFlex>
-                    <BtnContainerFlex>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        type="submit"
-                        disabled={isSubmitting}
-                        startIcon={<SaveIcon />}
+                    <motion.div
+                      layout
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                      }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <InputContainer>
+                        <TextField
+                          id="type"
+                          name="type"
+                          label="Type"
+                          variant="filled"
+                          fullWidth
+                          value={values.type}
+                          onChange={handleChange}
+                        />
+                      </InputContainer>
+                      <InputContainerFlex>
+                        <TextField
+                          id="startTime"
+                          name="startTime"
+                          label="Start time"
+                          variant="filled"
+                          type="time"
+                          value={values.startTime}
+                          onChange={handleChange}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          inputProps={{
+                            step: 300,
+                          }}
+                        />
+                        <TextField
+                          id="endTime"
+                          name="endTime"
+                          label="End time"
+                          variant="filled"
+                          type="time"
+                          value={values.endTime}
+                          onChange={handleChange}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          inputProps={{
+                            step: 300,
+                          }}
+                        />
+                      </InputContainerFlex>
+                      <motion.div
+                        layout
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ ease: 'easeOut', duration: 0.5 }}
                       >
-                        Save
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        fullWidth
-                        disabled={isSubmitting}
-                        startIcon={<DeleteIcon />}
-                        onClick={handleDeleteGymClass}
-                      >
-                        Delete
-                      </Button>
-                    </BtnContainerFlex>
-                  </motion.div>
-                </Form>
+                        <BtnContainerFlex>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            type="submit"
+                            disabled={isSubmitting}
+                            startIcon={<SaveIcon />}
+                          >
+                            Save
+                          </Button>
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            fullWidth
+                            disabled={isSubmitting}
+                            startIcon={<DeleteIcon />}
+                            onClick={handleDeleteGymClass}
+                          >
+                            Delete
+                          </Button>
+                        </BtnContainerFlex>
+                      </motion.div>
+                    </motion.div>
+                  </Form>
+                  {isSubmitting && <ScheduleCardLoader />}
+                </>
               )}
             </Formik>
           </motion.div>
