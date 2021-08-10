@@ -33,7 +33,6 @@ const Schedule: React.FC<ScheduleProps> = ({}) => {
   }, [selectedDay]);
 
   if (loading) return <Loader />;
-
   return (
     <DashLayout>
       <DashContentContainer>

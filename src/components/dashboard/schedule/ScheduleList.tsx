@@ -33,26 +33,29 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
   const toggleAddNewClass = () => setAddNewClass(!addNewClass);
   return (
     <Container>
+      {list && list.length === 0 && (
+        <p style={{ color: 'white' }}>{`No Classes ${dayTitle}`}</p>
+      )}
       <AnimateSharedLayout>
-        {list && list.length > 0 ? (
-          <motion.ul layout style={{ padding: 0 }}>
-            {list.map((item) => (
+        <motion.ul layout style={{ padding: 0 }}>
+          {list &&
+            list.length > 0 &&
+            list.map((item) => (
               <ScheduleCard
                 key={item.id}
                 gymClass={item}
                 getGymClasses={getGymClasses}
+                selectedDay={selectedDay}
               />
             ))}
-            {addNewClass && (
-              <ScheduleCard
-                getGymClasses={getGymClasses}
-                toggleAddNewClass={toggleAddNewClass}
-              />
-            )}
-          </motion.ul>
-        ) : (
-          <p style={{ color: 'white' }}>{`No Classes ${dayTitle}`}</p>
-        )}
+          {addNewClass && (
+            <ScheduleCard
+              getGymClasses={getGymClasses}
+              toggleAddNewClass={toggleAddNewClass}
+              selectedDay={selectedDay}
+            />
+          )}
+        </motion.ul>
 
         <AddGymClassBtn onClick={toggleAddNewClass} disabled={addNewClass} />
       </AnimateSharedLayout>

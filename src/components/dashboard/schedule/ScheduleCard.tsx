@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import {
   Exact,
   GymClass,
+  useCreateGymClassMutation,
   useDeleteGymClassMutation,
   useUpdateGymClassMutation,
 } from '../../../generated/graphql';
@@ -21,6 +22,7 @@ import { ScheduleCardLoader } from './ScheduleCardLoader';
 
 interface ScheduleCardProps {
   gymClass?: Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>;
+  selectedDay: number;
   getGymClasses: (
     options?:
       | QueryLazyOptions<
@@ -40,6 +42,7 @@ interface Values {
 }
 
 export const ScheduleCard: React.FC<ScheduleCardProps> = ({
+  selectedDay,
   gymClass,
   getGymClasses,
   toggleAddNewClass,
@@ -51,13 +54,25 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
     onCompleted: (data) => data?.deleteGymClass && getGymClasses(),
   });
 
+  const [createGymClass] = useCreateGymClassMutation({
+    onCompleted: (data) => {
+      if (data.createGymClass) {
+        toggleAddNewClass && toggleAddNewClass();
+        getGymClasses();
+      }
+    },
+  });
+
   const toggleOpen = () => setIsOpen(!isOpen);
-  const [updateGymClass, { error }] = useUpdateGymClassMutation({
+  const [updateGymClass] = useUpdateGymClassMutation({
     onCompleted: (data) => data && setGymClassState(data.updateGymClass),
   });
 
   const handleUpdateGymClass = async (values: Values) =>
     updateGymClass({ variables: { id: +gymClassState?.id, ...values } });
+
+  const handleAddNewGymClass = async (values: Values) =>
+    createGymClass({ variables: { ...values, dayOfTheWeek: selectedDay } });
 
   const handleDeleteGymClass = () => {
     toggleOpen();
@@ -124,6 +139,10 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 values: Values,
                 { setSubmitting }: FormikHelpers<Values>
               ) => {
+                if (!gymClass) {
+                  await handleAddNewGymClass(values);
+                  return;
+                }
                 const res = await handleUpdateGymClass(values);
                 if (res.data?.updateGymClass) {
                   setSubmitting(false);

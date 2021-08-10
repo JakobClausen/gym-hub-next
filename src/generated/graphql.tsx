@@ -63,7 +63,7 @@ export type LoginResponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   updateGymClass: GymClass;
-  createGymClass: GymClass;
+  createGymClass: Scalars['Boolean'];
   deleteGymClass: Scalars['Boolean'];
   registerGym: Gym;
   registerUser: User;
@@ -233,6 +233,19 @@ export type WorkoutSectionInput = {
   workoutId: Scalars['Float'];
 };
 
+export type CreateGymClassMutationVariables = Exact<{
+  dayOfTheWeek: Scalars['Float'];
+  startTime: Scalars['String'];
+  endTime: Scalars['String'];
+  type: Scalars['String'];
+}>;
+
+
+export type CreateGymClassMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createGymClass'>
+);
+
 export type DeleteGymClassMutationVariables = Exact<{
   id: Scalars['Float'];
 }>;
@@ -335,6 +348,42 @@ export type GetGymClassesQuery = (
 );
 
 
+export const CreateGymClassDocument = gql`
+    mutation CreateGymClass($dayOfTheWeek: Float!, $startTime: String!, $endTime: String!, $type: String!) {
+  createGymClass(
+    createGymClass: {dayOfTheWeek: $dayOfTheWeek, startTime: $startTime, endTime: $endTime, type: $type}
+  )
+}
+    `;
+export type CreateGymClassMutationFn = Apollo.MutationFunction<CreateGymClassMutation, CreateGymClassMutationVariables>;
+
+/**
+ * __useCreateGymClassMutation__
+ *
+ * To run a mutation, you first call `useCreateGymClassMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateGymClassMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createGymClassMutation, { data, loading, error }] = useCreateGymClassMutation({
+ *   variables: {
+ *      dayOfTheWeek: // value for 'dayOfTheWeek'
+ *      startTime: // value for 'startTime'
+ *      endTime: // value for 'endTime'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useCreateGymClassMutation(baseOptions?: Apollo.MutationHookOptions<CreateGymClassMutation, CreateGymClassMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateGymClassMutation, CreateGymClassMutationVariables>(CreateGymClassDocument, options);
+      }
+export type CreateGymClassMutationHookResult = ReturnType<typeof useCreateGymClassMutation>;
+export type CreateGymClassMutationResult = Apollo.MutationResult<CreateGymClassMutation>;
+export type CreateGymClassMutationOptions = Apollo.BaseMutationOptions<CreateGymClassMutation, CreateGymClassMutationVariables>;
 export const DeleteGymClassDocument = gql`
     mutation DeleteGymClass($id: Float!) {
   deleteGymClass(id: $id)
@@ -641,6 +690,7 @@ export const namedOperations = {
     getGymClasses: 'getGymClasses'
   },
   Mutation: {
+    CreateGymClass: 'CreateGymClass',
     DeleteGymClass: 'DeleteGymClass',
     login: 'login',
     logout: 'logout',
