@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { DashboardRouts } from '../../constants/routes';
 import { SpaceBetween } from '../../styles/styledComponents/align';
 import { Avatar } from '../../styles/styledComponents/image';
 import {
@@ -23,26 +23,23 @@ export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
       {children}
       <BottomNav>
         <SpaceBetween>
-          <Link as="/dashboard" href="/dashboard">
-            <a style={{ width: '100%' }}>
-              <DashNavButton src="/icons/dashboard.svg" />
-            </a>
-          </Link>
-          <Link as="/dashboard/whiteboard" href="/dashboard/whiteboard">
-            <a style={{ width: '100%' }}>
-              <DashNavButton src="/icons/whiteboard.png" />
-            </a>
-          </Link>
-          <Link as="/dashboard/remote" href="/dashboard/remote">
-            <a style={{ width: '100%' }}>
-              <DashNavButton src="/icons/remote.png" />
-            </a>
-          </Link>
-          <Link as="/dashboard/settings" href="/dashboard/settings">
-            <a style={{ width: '100%' }}>
-              <DashNavButton src="/icons/settings.png" />
-            </a>
-          </Link>
+          <DashNavButton src="/icons/dashboard.svg" />
+          <DashNavButton
+            src="/icons/whiteboard.png"
+            endpoint={DashboardRouts.WHITEBOARD}
+          />
+          <DashNavButton
+            src="/icons/remote.png"
+            endpoint={DashboardRouts.REMOTE}
+          />
+          <DashNavButton
+            src="/icons/remote.png"
+            endpoint={DashboardRouts.SCHEDULE}
+          />
+          <DashNavButton
+            src="/icons/settings.png"
+            endpoint={DashboardRouts.SETTINGS}
+          />
         </SpaceBetween>
       </BottomNav>
     </LayoutContainer>

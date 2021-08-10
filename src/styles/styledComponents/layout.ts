@@ -1,13 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const LayoutContainer = styled.div`
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  bottom: 0;
+  min-height: 100vh;
   background: ${(props) => props.theme.colors.primary};
   padding: ${(props) => props.theme.padding.border};
+  background: ${(props) => props.theme.colors.primary};
 `;
 
 export const TopLayout = styled.div`
@@ -27,5 +28,6 @@ export const BottomNav = styled.div`
   left: 0;
   right: 0;
   z-index: 999;
+  height: 10vh;
   background: ${(props) => props.theme.colors.primary};
 `;
