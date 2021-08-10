@@ -8,8 +8,8 @@ import { WeekdaysSelectOptions } from '../../constants/schedule';
 import { GymClass, useGetGymClassesLazyQuery } from '../../generated/graphql';
 import { DashContentContainer } from '../../styles/styledComponents/dashboard';
 import { Container } from '../../styles/styledComponents/schedule';
-import { H3, H4 } from '../../styles/styledComponents/titles';
-import { WeekdayOption, Weekdays } from '../../types/schedule';
+import { H3 } from '../../styles/styledComponents/titles';
+import { WeekdayOption } from '../../types/schedule';
 
 interface ScheduleProps {}
 
@@ -52,7 +52,6 @@ const Schedule: React.FC<ScheduleProps> = ({}) => {
             options={WeekdaysSelectOptions}
           />
         </Container>
-        <H4 style={{ marginTop: '20px' }}>{Weekdays[selectedDay]}</H4>
         <ScheduleList
           list={schedule}
           selectedDay={selectedDay}
