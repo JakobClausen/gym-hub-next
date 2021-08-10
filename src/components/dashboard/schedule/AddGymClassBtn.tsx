@@ -1,13 +1,27 @@
+import { Button } from '@material-ui/core';
 import { motion } from 'framer-motion';
 import React from 'react';
-import { NewScheduleBtn } from '../../../styles/styledComponents/schedule';
 
-interface AddGymClassBtnProps {}
+interface AddGymClassBtnProps {
+  onClick: () => void;
+  disabled: boolean;
+}
 
-export const AddGymClassBtn: React.FC<AddGymClassBtnProps> = ({}) => {
+export const AddGymClassBtn: React.FC<AddGymClassBtnProps> = ({
+  onClick,
+  disabled,
+}) => {
   return (
     <motion.div layout>
-      <NewScheduleBtn>+</NewScheduleBtn>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        onClick={onClick}
+        disabled={disabled}
+      >
+        Add new class
+      </Button>
     </motion.div>
   );
 };

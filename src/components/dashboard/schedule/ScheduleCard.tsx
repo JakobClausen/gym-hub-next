@@ -20,7 +20,7 @@ import { scheduleValidation } from '../../../validation/scheduleValidation';
 import { ScheduleCardLoader } from './ScheduleCardLoader';
 
 interface ScheduleCardProps {
-  gymClass: Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>;
+  gymClass?: Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>;
   getGymClasses: (
     options?:
       | QueryLazyOptions<
@@ -30,6 +30,7 @@ interface ScheduleCardProps {
         >
       | undefined
   ) => void;
+  toggleAddNewClass?: () => void;
 }
 
 interface Values {
@@ -41,9 +42,10 @@ interface Values {
 export const ScheduleCard: React.FC<ScheduleCardProps> = ({
   gymClass,
   getGymClasses,
+  toggleAddNewClass,
 }) => {
   const [gymClassState, setGymClassState] = useState(gymClass);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(!gymClass);
 
   const [deleteGymClass] = useDeleteGymClassMutation({
     onCompleted: (data) => data?.deleteGymClass && getGymClasses(),
@@ -55,13 +57,13 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
   });
 
   const handleUpdateGymClass = async (values: Values) =>
-    updateGymClass({ variables: { id: +gymClassState.id, ...values } });
+    updateGymClass({ variables: { id: +gymClassState?.id, ...values } });
 
   const handleDeleteGymClass = () => {
     toggleOpen();
     deleteGymClass({
       variables: {
-        id: +gymClassState.id,
+        id: +gymClassState?.id,
       },
     });
   };
@@ -80,17 +82,24 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
     >
       <motion.div
         layout
-        onClick={toggleOpen}
+        onClick={() => {
+          if (!gymClass) {
+            toggleAddNewClass && toggleAddNewClass();
+          }
+          toggleOpen();
+        }}
         style={{
           padding: '10px',
         }}
       >
         <motion.p style={{ margin: '0px 0px 10px 0px' }}>
-          {gymClassState.type}
+          {gymClassState?.type}
         </motion.p>
-        <motion.p
-          style={{ fontWeight: 'bold', margin: '0px' }}
-        >{`${gymClassState.startTime} - ${gymClassState.endTime}`}</motion.p>
+        <motion.p style={{ fontWeight: 'bold', margin: '0px' }}>
+          {gymClass
+            ? `${gymClassState?.startTime} - ${gymClassState?.endTime}`
+            : 'Add new class'}
+        </motion.p>
       </motion.div>
       <AnimatePresence>
         {isOpen && (
@@ -106,9 +115,9 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
           >
             <Formik
               initialValues={{
-                type: gymClassState.type,
-                startTime: gymClassState.startTime,
-                endTime: gymClassState.endTime,
+                type: gymClassState?.type ?? '',
+                startTime: gymClassState?.startTime ?? '',
+                endTime: gymClassState?.endTime ?? '',
               }}
               validationSchema={scheduleValidation}
               onSubmit={async (
@@ -206,7 +215,11 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
                             fullWidth
                             disabled={isSubmitting}
                             startIcon={<DeleteIcon />}
-                            onClick={handleDeleteGymClass}
+                            onClick={
+                              gymClass
+                                ? handleDeleteGymClass
+                                : toggleAddNewClass
+                            }
                           >
                             Delete
                           </Button>

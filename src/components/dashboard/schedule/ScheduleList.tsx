@@ -1,7 +1,7 @@
 import { QueryLazyOptions } from '@apollo/client';
 import dayjs from 'dayjs';
 import { AnimateSharedLayout, motion } from 'framer-motion';
-import React from 'react';
+import React, { useState } from 'react';
 import { Exact, GymClass } from '../../../generated/graphql';
 import { Container } from '../../../styles/styledComponents/schedule';
 import { Weekdays } from '../../../types/schedule';
@@ -27,8 +27,10 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
   selectedDay,
   getGymClasses,
 }) => {
+  const [addNewClass, setAddNewClass] = useState(false);
   const dayTitle =
     selectedDay === dayjs().day() ? 'today' : `on ${Weekdays[selectedDay]}`;
+  const toggleAddNewClass = () => setAddNewClass(!addNewClass);
   return (
     <Container>
       <AnimateSharedLayout>
@@ -39,13 +41,20 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
                 key={item.id}
                 gymClass={item}
                 getGymClasses={getGymClasses}
-              ></ScheduleCard>
+              />
             ))}
+            {addNewClass && (
+              <ScheduleCard
+                getGymClasses={getGymClasses}
+                toggleAddNewClass={toggleAddNewClass}
+              />
+            )}
           </motion.ul>
         ) : (
           <p style={{ color: 'white' }}>{`No Classes ${dayTitle}`}</p>
         )}
-        <AddGymClassBtn />
+
+        <AddGymClassBtn onClick={toggleAddNewClass} disabled={addNewClass} />
       </AnimateSharedLayout>
     </Container>
   );

@@ -20,20 +20,6 @@ export const Card = styled.div`
   cursor: pointer;
 `;
 
-export const NewScheduleBtn = styled.div`
-  width: 100%;
-  height: 100px;
-  border-radius: 8px;
-  background-color: gray;
-  margin: 10px 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-  font-size: 60px;
-  cursor: pointer;
-`;
-
 export const InputContainer = styled.div`
   margin-bottom: 10px;
 `;
