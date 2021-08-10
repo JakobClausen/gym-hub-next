@@ -5,7 +5,11 @@ import { DashLayout } from '../../components/dashboard/DashLayout';
 import { ScheduleList } from '../../components/dashboard/schedule/ScheduleList';
 import { Loader } from '../../components/Loader';
 import { WeekdaysSelectOptions } from '../../constants/schedule';
-import { GymClass, useGetGymClassesLazyQuery } from '../../generated/graphql';
+import {
+  GymClass,
+  useDeleteGymClassMutation,
+  useGetGymClassesLazyQuery,
+} from '../../generated/graphql';
 import { DashContentContainer } from '../../styles/styledComponents/dashboard';
 import { Container } from '../../styles/styledComponents/schedule';
 import { H3, H4 } from '../../styles/styledComponents/titles';
@@ -24,7 +28,14 @@ const Schedule: React.FC<ScheduleProps> = ({}) => {
 
   const [getGymClasses, { loading }] = useGetGymClassesLazyQuery({
     variables: { day: selectedDay },
-    onCompleted: (data) => data && setSchedule(data?.classes),
+    onCompleted: (data) => data?.classes && setSchedule(data?.classes),
+    fetchPolicy: 'no-cache',
+  });
+
+  const [deleteGymClass] = useDeleteGymClassMutation({
+    // awaitRefetchQueries: true,
+    // refetchQueries: [namedOperations.Query.getGymClasses],
+    onCompleted: (data) => data?.deleteGymClass && getGymClasses(),
   });
 
   useEffect(() => {
@@ -51,7 +62,11 @@ const Schedule: React.FC<ScheduleProps> = ({}) => {
           />
         </Container>
         <H4 style={{ marginTop: '20px' }}>{Weekdays[selectedDay]}</H4>
-        <ScheduleList list={schedule} selectedDay={selectedDay} />
+        <ScheduleList
+          list={schedule}
+          selectedDay={selectedDay}
+          deleteGymClass={deleteGymClass}
+        />
       </DashContentContainer>
     </DashLayout>
   );

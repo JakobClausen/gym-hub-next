@@ -5,6 +5,7 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
 import {
+  DeleteGymClassMutationFn,
   GymClass,
   useUpdateGymClassMutation,
 } from '../../../generated/graphql';
@@ -16,6 +17,7 @@ import {
 
 interface ScheduleCardProps {
   gymClass: Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>;
+  deleteGymClass: DeleteGymClassMutationFn;
 }
 
 interface Values {
@@ -24,7 +26,10 @@ interface Values {
   endTime: string;
 }
 
-export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
+export const ScheduleCard: React.FC<ScheduleCardProps> = ({
+  gymClass,
+  deleteGymClass,
+}) => {
   const [gymClassState, setGymClassState] = useState(gymClass);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,6 +42,14 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
     updateGymClass({ variables: { id: +gymClassState.id, ...values } });
   };
 
+  const handleDeleteGymClass = () => {
+    toggleOpen();
+    deleteGymClass({
+      variables: {
+        id: +gymClassState.id,
+      },
+    });
+  };
   return (
     <motion.li
       layout
@@ -162,9 +175,9 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({ gymClass }) => {
                         variant="contained"
                         color="secondary"
                         fullWidth
-                        type="submit"
                         disabled={isSubmitting}
                         startIcon={<DeleteIcon />}
+                        onClick={handleDeleteGymClass}
                       >
                         Delete
                       </Button>
