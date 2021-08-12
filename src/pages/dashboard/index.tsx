@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import { DashLayout } from '../../components/dashboard/DashLayout';
 import { Hello } from '../../components/dashboard/Hello';
+import { Loading } from '../../components/Loading';
 import { useAppContext } from '../../context/AppContext';
 import { Button } from '../../styles/styledComponents/buttons';
 import { TopBottomSpace } from '../../styles/styledComponents/containers';
@@ -12,10 +13,11 @@ interface DashboardProps {}
 
 const Dashboard: React.FC<DashboardProps> = ({}) => {
   const { user } = useAppContext();
+  if (!user) return <Loading />;
   return (
     <DashLayout>
       <DashContentContainer>
-        <Hello name={user!.firstName}></Hello>
+        <Hello name={user.firstName}></Hello>
       </DashContentContainer>
       {!isMobile() && (
         <TopBottomSpace>
