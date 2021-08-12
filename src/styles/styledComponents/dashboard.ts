@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const IconContainer = styled.div`
-  height: 10vh;
+  height: 8vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -28,4 +28,14 @@ export const NavigationLine = styled.div`
   right: 0;
   height: 2px;
   background: #ffffff;
+`;
+
+export const NavigationTitle = styled.p`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #ffffff;
+  font-size: 10px;
+  text-align: center;
 `;

@@ -35,6 +35,7 @@ export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
                 src={nav.src}
                 isActive={nav.endpoint === activeRoute}
                 endpoint={nav.endpoint}
+                name={nav.name}
               />
             );
           })}

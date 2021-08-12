@@ -28,6 +28,6 @@ export const BottomNav = styled.div`
   left: 0;
   right: 0;
   z-index: 999;
-  height: 10vh;
+  height: 8vh;
   background: ${(props) => props.theme.colors.primary};
 `;

@@ -5,6 +5,7 @@ import {
   ButtonLink,
   IconContainer,
   NavigationLine,
+  NavigationTitle,
 } from '../../styles/styledComponents/dashboard';
 import { NavIcon } from '../../styles/styledComponents/image';
 
@@ -12,12 +13,14 @@ interface DashNavButtonProps {
   src: string;
   isActive: boolean;
   endpoint: string;
+  name: string;
 }
 
 export const DashNavButton: React.FC<DashNavButtonProps> = ({
   src,
   endpoint,
   isActive,
+  name,
 }) => {
   const path =
     endpoint === BaseRoutes.DASHBOARD
@@ -28,6 +31,7 @@ export const DashNavButton: React.FC<DashNavButtonProps> = ({
       <ButtonLink>
         <IconContainer>
           <NavIcon src={src} />
+          <NavigationTitle>{name}</NavigationTitle>
           {isActive && <NavigationLine />}
         </IconContainer>
       </ButtonLink>
