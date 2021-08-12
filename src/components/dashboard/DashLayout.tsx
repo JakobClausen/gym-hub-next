@@ -1,4 +1,5 @@
-import { DashboardRouts } from '../../constants/routes';
+import { useRouter } from 'next/router';
+import { bottomNav } from '../../constants/routes';
 import { SpaceBetween } from '../../styles/styledComponents/align';
 import { Avatar } from '../../styles/styledComponents/image';
 import {
@@ -7,11 +8,15 @@ import {
   TopLayout,
 } from '../../styles/styledComponents/layout';
 import { H4 } from '../../styles/styledComponents/titles';
+import { activeBottomNav } from '../../utils/routeUtils';
 import { DashNavButton } from './DashNavButton';
 
 interface DashLayoutProps {}
 
 export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
+  const router = useRouter();
+  const activeRoute = activeBottomNav(router.pathname);
+
   return (
     <LayoutContainer>
       <TopLayout>
@@ -23,23 +28,17 @@ export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
       {children}
       <BottomNav>
         <SpaceBetween>
-          <DashNavButton src="/icons/dashboard.svg" />
-          <DashNavButton
-            src="/icons/whiteboard.png"
-            endpoint={DashboardRouts.WHITEBOARD}
-          />
-          <DashNavButton
-            src="/icons/remote.png"
-            endpoint={DashboardRouts.REMOTE}
-          />
-          <DashNavButton
-            src="/icons/remote.png"
-            endpoint={DashboardRouts.SCHEDULE}
-          />
-          <DashNavButton
-            src="/icons/settings.png"
-            endpoint={DashboardRouts.SETTINGS}
-          />
+          {bottomNav.map((nav) => {
+            return (
+              <DashNavButton
+                key={nav.endpoint}
+                src={nav.src}
+                isActive={nav.endpoint === activeRoute}
+                endpoint={nav.endpoint}
+                name={nav.name}
+              />
+            );
+          })}
         </SpaceBetween>
       </BottomNav>
     </LayoutContainer>

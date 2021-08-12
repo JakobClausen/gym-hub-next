@@ -11,3 +11,31 @@ export enum BaseRoutes {
   TIMER = '/timer',
   DASHBOARD = '/dashboard',
 }
+
+export const bottomNav = [
+  {
+    src: '/icons/dashboard.svg',
+    endpoint: BaseRoutes.DASHBOARD,
+    name: 'Dashboard',
+  },
+  {
+    src: '/icons/whiteboard.png',
+    endpoint: DashboardRouts.WHITEBOARD,
+    name: 'Whiteboard',
+  },
+  {
+    src: '/icons/remote.png',
+    endpoint: DashboardRouts.REMOTE,
+    name: 'Remote',
+  },
+  {
+    src: '/icons/schedule.png',
+    endpoint: DashboardRouts.SCHEDULE,
+    name: 'Schedule',
+  },
+  {
+    src: '/icons/settings.png',
+    endpoint: DashboardRouts.SETTINGS,
+    name: 'Settings',
+  },
+];

@@ -1,28 +1,38 @@
 import Link from 'next/link';
+import React from 'react';
 import { BaseRoutes } from '../../constants/routes';
 import {
   ButtonLink,
   IconContainer,
+  NavigationLine,
+  NavigationTitle,
 } from '../../styles/styledComponents/dashboard';
 import { NavIcon } from '../../styles/styledComponents/image';
 
 interface DashNavButtonProps {
   src: string;
-  endpoint?: string;
+  isActive: boolean;
+  endpoint: string;
+  name: string;
 }
 
 export const DashNavButton: React.FC<DashNavButtonProps> = ({
   src,
   endpoint,
+  isActive,
+  name,
 }) => {
-  const path = endpoint
-    ? `${BaseRoutes.DASHBOARD}${endpoint}`
-    : BaseRoutes.DASHBOARD;
+  const path =
+    endpoint === BaseRoutes.DASHBOARD
+      ? BaseRoutes.DASHBOARD
+      : `${BaseRoutes.DASHBOARD}${endpoint}`;
   return (
     <Link as={path} href={path}>
       <ButtonLink>
         <IconContainer>
           <NavIcon src={src} />
+          <NavigationTitle>{name}</NavigationTitle>
+          {isActive && <NavigationLine />}
         </IconContainer>
       </ButtonLink>
     </Link>
