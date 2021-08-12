@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Exact, GymClass } from '../../../generated/graphql';
 import { Container } from '../../../styles/styledComponents/schedule';
 import { Weekdays } from '../../../types/schedule';
-import { AddGymClassBtn } from './AddGymClassBtn';
+import { BigButton } from '../../BigButton';
 import { ScheduleCard } from './ScheduleCard';
 
 interface ScheduleListProps {
@@ -56,8 +56,13 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
             />
           )}
         </motion.ul>
-
-        <AddGymClassBtn onClick={toggleAddNewClass} disabled={addNewClass} />
+        <motion.div layout>
+          <BigButton
+            onClick={toggleAddNewClass}
+            disabled={addNewClass}
+            title="Add new class"
+          />
+        </motion.div>
       </AnimateSharedLayout>
     </Container>
   );

@@ -1,9 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Avatar = styled.img`
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
+  max-width: 100px;
+  max-height: 60px;
 `;
 
 export const NavIcon = styled.img`

@@ -17,7 +17,7 @@ import {
   InputContainer,
   InputContainerFlex,
 } from '../../../styles/styledComponents/schedule';
-import { scheduleValidation } from '../../../validation/scheduleValidation';
+import { scheduleValidation } from '../../../validation/schedule';
 import { ScheduleCardLoader } from './ScheduleCardLoader';
 
 interface ScheduleCardProps {

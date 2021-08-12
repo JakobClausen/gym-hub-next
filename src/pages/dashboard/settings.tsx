@@ -1,29 +1,23 @@
-import { useRouter } from "next/router";
-import { DashLayout } from "../../components/dashboard/DashLayout";
-import { useLogoutMutation } from "../../generated/graphql";
-import { DashContentContainer } from "../../styles/styledComponents/dashboard";
-import { H4 } from "../../styles/styledComponents/titles";
-import { Button } from "../../styles/styledComponents/buttons";
-import { BottomContainer } from "../../styles/styledComponents/containers";
-import Link from "next/link";
+import React from 'react';
+import { DashLayout } from '../../components/dashboard/DashLayout';
+import { LinkButton } from '../../components/LinkButton';
+import { useLogoutMutation } from '../../generated/graphql';
+import { BottomContainer } from '../../styles/styledComponents/containers';
+import { DashContentContainer } from '../../styles/styledComponents/dashboard';
+import { H3 } from '../../styles/styledComponents/titles';
 
 interface SettingsProps {}
 
 const Settings: React.FC<SettingsProps> = ({}) => {
   const [logout] = useLogoutMutation();
-  const router = useRouter();
 
   const handleLogout = () => logout();
   return (
     <DashLayout>
       <DashContentContainer>
-        <H4>Settings</H4>
+        <H3>Settings</H3>
         <BottomContainer>
-          <Link as="/" href="/">
-            <a style={{ width: "100%" }}>
-              <Button onClick={handleLogout}>Logout</Button>
-            </a>
-          </Link>
+          <LinkButton title="Logout" as="/" href="/" onClick={handleLogout} />
         </BottomContainer>
       </DashContentContainer>
     </DashLayout>

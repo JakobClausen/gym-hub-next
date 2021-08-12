@@ -1,7 +1,7 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
-import { getAccessToken } from '../utils/accessToken';
+import { getAccessToken } from '../utils/authUtils';
 import { handleUnauthorisedError } from './errorhandlers';
 
 const httpLink = createHttpLink({

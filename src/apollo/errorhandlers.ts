@@ -1,5 +1,5 @@
 import { NextLink, Operation } from '@apollo/client';
-import { setAccessToken, updateAccessToken } from '../utils/accessToken';
+import { setAccessToken, updateAccessToken } from '../utils/authUtils';
 
 export const handleUnauthorisedError = async (
   operation: Operation,

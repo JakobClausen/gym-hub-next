@@ -37,29 +37,34 @@ const Whiteboard: React.FC<WhiteboardProps> = ({}) => {
     getWorkout();
   }, [selectedDay]);
 
-  if (sectionsLoading) return <Loader />;
   return (
     <DashLayout>
       <DashContentContainer>
-        <H3>Whiteboard</H3>
-
-        {workout?.getWorkoutByDay.externalApiProvider ? (
-          <ErrInfoText>{`You can't edit the whiteboard when using ${workout.getWorkoutByDay.externalApiProvider}`}</ErrInfoText>
+        {sectionsLoading ? (
+          <Loader />
         ) : (
-          <Container>
-            <Select
-              isClearable={false}
-              isSearchable={false}
-              value={selectedOption}
-              onChange={(selectedOption) => {
-                if (selectedOption) {
-                  setSelectedOption(selectedOption);
-                  setSelectedDay(selectedOption?.value);
-                }
-              }}
-              options={WeekdaysSelectOptions}
-            />
-          </Container>
+          <>
+            <H3>Whiteboard</H3>
+
+            {workout?.getWorkoutByDay.externalApiProvider ? (
+              <ErrInfoText>{`You can't edit the whiteboard when using ${workout.getWorkoutByDay.externalApiProvider}`}</ErrInfoText>
+            ) : (
+              <Container>
+                <Select
+                  isClearable={false}
+                  isSearchable={false}
+                  value={selectedOption}
+                  onChange={(selectedOption) => {
+                    if (selectedOption) {
+                      setSelectedOption(selectedOption);
+                      setSelectedDay(selectedOption?.value);
+                    }
+                  }}
+                  options={WeekdaysSelectOptions}
+                />
+              </Container>
+            )}
+          </>
         )}
       </DashContentContainer>
     </DashLayout>

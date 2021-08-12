@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { DashLayout } from '../../components/dashboard/DashLayout';
 import { ScheduleList } from '../../components/dashboard/schedule/ScheduleList';
-import { Loader } from '../../components/Loader';
 import { WeekdaysSelectOptions } from '../../constants/schedule';
 import { GymClass, useGetGymClassesLazyQuery } from '../../generated/graphql';
 import { DashContentContainer } from '../../styles/styledComponents/dashboard';
@@ -22,7 +21,7 @@ const Schedule: React.FC<ScheduleProps> = ({}) => {
     null | Pick<GymClass, 'id' | 'type' | 'startTime' | 'endTime'>[]
   >(null);
 
-  const [getGymClasses, { loading }] = useGetGymClassesLazyQuery({
+  const [getGymClasses] = useGetGymClassesLazyQuery({
     variables: { day: selectedDay },
     onCompleted: (data) => data?.classes && setSchedule(data?.classes),
     fetchPolicy: 'no-cache',
@@ -31,8 +30,6 @@ const Schedule: React.FC<ScheduleProps> = ({}) => {
   useEffect(() => {
     getGymClasses();
   }, [selectedDay]);
-
-  if (loading) return <Loader />;
   return (
     <DashLayout>
       <DashContentContainer>

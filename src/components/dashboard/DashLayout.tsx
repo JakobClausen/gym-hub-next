@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { bottomNav } from '../../constants/routes';
+import { useAppContext } from '../../context/AppContext';
 import { SpaceBetween } from '../../styles/styledComponents/align';
 import { Avatar } from '../../styles/styledComponents/image';
 import {
@@ -14,6 +15,7 @@ import { DashNavButton } from './DashNavButton';
 interface DashLayoutProps {}
 
 export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
+  const { gym } = useAppContext();
   const router = useRouter();
   const activeRoute = activeBottomNav(router.pathname);
 
@@ -22,7 +24,7 @@ export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
       <TopLayout>
         <SpaceBetween>
           <H4>Dashboard</H4>
-          <Avatar src="/images/fysikenAvatar.jpeg" />
+          <Avatar src={gym?.logoUrl} />
         </SpaceBetween>
       </TopLayout>
       {children}

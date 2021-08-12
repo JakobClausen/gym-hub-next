@@ -1,8 +1,7 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import React from 'react';
+import { LinkButton } from '../components/LinkButton';
 import { CenterHorizontal } from '../styles/styledComponents/align';
-import { Button } from '../styles/styledComponents/buttons';
 import {
   BottomContainer,
   PrimaryContainer,
@@ -25,11 +24,7 @@ const Home = () => {
           <H1>Gymhub</H1>
         </CenterHorizontal>
         <BottomContainer>
-          <Link as="/login" href="/login">
-            <a style={{ width: '100%' }}>
-              <Button>Login</Button>
-            </a>
-          </Link>
+          <LinkButton title="Login" as="/login" href="/login" />
         </BottomContainer>
       </PrimaryContainer>
     </div>
