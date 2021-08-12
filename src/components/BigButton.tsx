@@ -3,13 +3,13 @@ import React from 'react';
 
 interface BigButtonProps {
   onClick: () => void;
-  disabled: boolean;
   title: string;
+  disabled?: boolean;
 }
 
 export const BigButton: React.FC<BigButtonProps> = ({
   onClick,
-  disabled,
+  disabled = false,
   title,
 }) => {
   return (
