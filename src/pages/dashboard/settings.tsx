@@ -17,7 +17,7 @@ const Settings: React.FC<SettingsProps> = ({}) => {
       <DashContentContainer>
         <H3>Settings</H3>
         <BottomContainer>
-          <LinkButton title="Logout" as="/" href="/" />
+          <LinkButton title="Logout" as="/" href="/" onClick={handleLogout} />
         </BottomContainer>
       </DashContentContainer>
     </DashLayout>
