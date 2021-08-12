@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import React from 'react';
 import { Login } from '../generated/graphql';
 import { InputContainer } from '../styles/styledComponents/containers';
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 });
 
 interface LoginFormProps {
-  onSubmit: (cridentials: Login) => void;
+  onSubmit: (cridentials: Login) => Promise<void>;
 }
 export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const styles = useStyles();
@@ -23,8 +23,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       <Formik
         initialValues={{ email: '', password: '' } as Login}
         validationSchema={loginValidationSchema}
-        onSubmit={(values) => {
-          onSubmit(values);
+        onSubmit={async (values, { setSubmitting }: FormikHelpers<Login>) => {
+          await onSubmit(values);
+          setSubmitting(false);
         }}
       >
         {({ handleSubmit, handleChange, handleBlur, values, isSubmitting }) => (
