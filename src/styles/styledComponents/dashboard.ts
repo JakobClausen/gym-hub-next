@@ -6,6 +6,7 @@ export const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 export const ButtonLink = styled.a`
@@ -18,4 +19,13 @@ export const DashContentContainer = styled.div`
   width: 100%;
   height: auto;
   background: ${(props) => props.theme.colors.primary};
+`;
+
+export const NavigationLine = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #ffffff;
 `;
