@@ -1,22 +1,27 @@
-import { Formik } from "formik";
-import { Login } from "../generated/graphql";
-import {
-  FormContainer,
-  Input,
-  SubmitButton,
-  Label,
-  Form,
-} from "../styles/styledComponents/form";
-import { loginValidationSchema } from "../utils/validationSchemas";
+import { Button, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Formik } from 'formik';
+import React from 'react';
+import { Login } from '../generated/graphql';
+import { InputContainer } from '../styles/styledComponents/containers';
+import { Form, FormContainer } from '../styles/styledComponents/form';
+import { loginValidationSchema } from '../validation/login';
+
+const useStyles = makeStyles({
+  button: {
+    backgroundColor: '#FFFFFF',
+  },
+});
 
 interface LoginFormProps {
   onSubmit: (cridentials: Login) => void;
 }
 export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+  const styles = useStyles();
   return (
     <FormContainer>
       <Formik
-        initialValues={{ email: "", password: "" } as Login}
+        initialValues={{ email: '', password: '' } as Login}
         validationSchema={loginValidationSchema}
         onSubmit={(values) => {
           onSubmit(values);
@@ -24,31 +29,39 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       >
         {({ handleSubmit, handleChange, handleBlur, values, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
-            <Label>
-              Email
-              <Input
-                type="email"
+            <InputContainer>
+              <TextField
+                id="email"
                 name="email"
-                placeholder="Email"
-                value={values.email}
+                label="Email"
+                variant="filled"
+                fullWidth
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className={styles.button}
               />
-            </Label>
-            <Label>
-              Password
-              <Input
-                type="password"
+            </InputContainer>
+            <InputContainer>
+              <TextField
+                id="password"
                 name="password"
-                placeholder="Password"
-                value={values.password}
+                label="Password"
+                variant="filled"
+                fullWidth
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className={styles.button}
               />
-            </Label>
-            <SubmitButton type="submit" disabled={isSubmitting}>
+            </InputContainer>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              fullWidth
+              disabled={isSubmitting}
+            >
               Login
-            </SubmitButton>
+            </Button>
           </Form>
         )}
       </Formik>

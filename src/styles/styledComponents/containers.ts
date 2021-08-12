@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const PrimaryContainer = styled.div`
   height: 100vh;
@@ -18,4 +18,8 @@ export const BottomContainer = styled.div`
 
 export const TopBottomSpace = styled.div`
   margin: ${(props) => `${props.theme.padding.border} 0px`};
+`;
+
+export const InputContainer = styled.div`
+  margin-bottom: 10px;
 `;
