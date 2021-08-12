@@ -1,21 +1,21 @@
-import { LoginForm } from "../components/LoginForm";
-import { useLoginMutation, Login } from "../generated/graphql";
-import { setAccessToken } from "../utils/accessToken";
-import { useRouter } from "next/router";
-import React from "react";
-import { PrimaryContainer } from "../styles/styledComponents/containers";
-import { H1 } from "../styles/styledComponents/titles";
+import { useRouter } from 'next/router';
+import React from 'react';
+import { LoginForm } from '../components/LoginForm';
+import { Login as LoginTypes, useLoginMutation } from '../generated/graphql';
+import { PrimaryContainer } from '../styles/styledComponents/containers';
+import { H1 } from '../styles/styledComponents/titles';
+import { setAccessToken } from '../utils/authUtils';
 
-interface SigninProps {}
-const Signin: React.FC<SigninProps> = ({}) => {
+interface LoginProps {}
+const Login: React.FC<LoginProps> = ({}) => {
   const router = useRouter();
   const [login, { error }] = useLoginMutation();
 
-  const handleLogin = async (cridentials: Login) => {
+  const handleLogin = async (cridentials: LoginTypes) => {
     const response = await login({ variables: cridentials });
     if (response && response.data) {
       setAccessToken(response.data.loginUser.accessToken);
-      router.push("/dashboard");
+      router.push('/dashboard');
       return;
     }
   };
@@ -29,4 +29,4 @@ const Signin: React.FC<SigninProps> = ({}) => {
   );
 };
 
-export default Signin;
+export default Login;
