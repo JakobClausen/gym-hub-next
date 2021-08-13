@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { BigButton } from './BigButton';
+import { Button } from '../styles/styledComponents/buttons';
 
 interface LinkButtonProps {
   title: string;
@@ -18,7 +18,7 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
   return (
     <Link as={as} href={href}>
       <a style={{ width: '100%' }}>
-        <BigButton title={title} onClick={onClick ?? (() => {})} />
+        <Button onClick={onClick ?? (() => {})}>{title}</Button>
       </a>
     </Link>
   );

@@ -31,7 +31,7 @@ export const Input = styled.input`
     color: ${(props) => props.theme.colors.whiteText};
   }
   &:focus {
-    outline: none;
+    border: 0.05px solid #808080;
     box-shadow: 0px 0px 2px #808080;
   }
 `;

@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Button = styled.button`
   width: 100%;
-  height: 35px;
-  border: 0;
+  height: 50px;
   border-radius: 8px;
-  margin: "8px 0px";
-  background-color: #2772bf;
+  background: ${(props) => props.theme.colors.secondary};
+  border: none;
+  cursor: pointer;
+  color: ${(props) => props.theme.colors.whiteText};
 `;
