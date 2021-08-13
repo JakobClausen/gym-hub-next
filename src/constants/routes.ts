@@ -14,7 +14,7 @@ export enum BaseRoutes {
 
 export const bottomNav = [
   {
-    src: '/icons/dashboard.svg',
+    src: '/icons/dashboard.png',
     endpoint: BaseRoutes.DASHBOARD,
     name: 'Dashboard',
   },

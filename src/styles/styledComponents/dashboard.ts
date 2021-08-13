@@ -31,6 +31,7 @@ export const NavigationLine = styled.div`
 `;
 
 export const NavigationTitle = styled.p`
+  margin: 4px;
   position: absolute;
   bottom: 0;
   left: 0;
