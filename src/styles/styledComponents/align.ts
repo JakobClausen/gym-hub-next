@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Center = styled.div`
   width: 100%;
@@ -11,6 +11,10 @@ export const Center = styled.div`
 export const CenterHorizontal = styled.div`
   display: flex;
   justify-content: center;
+`;
+export const LeftHorizontal = styled.div`
+  display: flex;
+  justify-content: left;
 `;
 
 export const SpaceBetween = styled.div`

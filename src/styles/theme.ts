@@ -1,16 +1,26 @@
 export default {
   colors: {
-    primary: '#171717',
+    primary: '#FFFFFF',
+    secondary: '#0000FF',
     whiteText: '#FFFFFF',
+    blackText: '#000000',
     inactiveGymClass: '#222222',
     activeGymClass: 'Green',
+    warning: 'red',
+  },
+  fontSize: {
+    small: '12px',
+    medium: '16px',
   },
   padding: {
     border: '20px',
   },
   margin: {
-    bottom: '10vh',
-    top: '10vh',
+    bottom: '8vh',
+    top: '8vh',
+  },
+  spacing: {
+    button: '8px',
   },
   timer: {
     color: {

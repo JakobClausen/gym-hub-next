@@ -1,7 +1,5 @@
 import { QueryLazyOptions } from '@apollo/client';
-import { Button, TextField } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import SaveIcon from '@material-ui/icons/Save';
+import { TextField } from '@material-ui/core';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
@@ -12,12 +10,13 @@ import {
   useDeleteGymClassMutation,
   useUpdateGymClassMutation,
 } from '../../../generated/graphql';
+import { Button } from '../../../styles/styledComponents/buttons';
 import {
   BtnContainerFlex,
-  InputContainer,
   InputContainerFlex,
 } from '../../../styles/styledComponents/schedule';
 import { scheduleValidation } from '../../../validation/schedule';
+import { InputField } from '../../InputField';
 import { ScheduleCardLoader } from './ScheduleCardLoader';
 
 interface ScheduleCardProps {
@@ -167,17 +166,13 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      <InputContainer>
-                        <TextField
-                          id="type"
-                          name="type"
-                          label="Type"
-                          variant="filled"
-                          fullWidth
-                          value={values.type}
-                          onChange={handleChange}
-                        />
-                      </InputContainer>
+                      <InputField
+                        name="type"
+                        label="Type"
+                        value={values.type}
+                        onChange={handleChange}
+                        placeholder="Crossfit"
+                      />
                       <InputContainerFlex>
                         <TextField
                           id="startTime"
@@ -218,27 +213,17 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
                         transition={{ ease: 'easeOut', duration: 0.5 }}
                       >
                         <BtnContainerFlex>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            fullWidth
-                            type="submit"
-                            disabled={isSubmitting}
-                            startIcon={<SaveIcon />}
-                          >
+                          <Button type="submit" disabled={isSubmitting}>
                             Save
                           </Button>
                           <Button
-                            variant="contained"
-                            color="secondary"
-                            fullWidth
                             disabled={isSubmitting}
-                            startIcon={<DeleteIcon />}
                             onClick={
                               gymClass
                                 ? handleDeleteGymClass
                                 : toggleAddNewClass
                             }
+                            btnType="warning"
                           >
                             Delete
                           </Button>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FormContainer = styled.div`
   width: 100%;
@@ -13,14 +13,27 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-  color: ${(props) => props.theme.colors.whiteText};
+  color: ${(props) => props.theme.colors.blackText};
 `;
 export const Input = styled.input`
-  display: block;
   width: 100%;
-  height: 40px;
-  margin-bottom: 20px;
-  text-align: center;
+  height: 50px;
+  border: 0.05px solid #808080;
+  border-radius: 8px;
+  background: ${(props) => props.theme.colors.primary};
+  padding-left: 10px;
+  color: ${(props) => props.theme.colors.blackText};
+  ::placeholder,
+  ::-webkit-input-placeholder {
+    color: ${(props) => props.theme.colors.blackText};
+  }
+  :-ms-input-placeholder {
+    color: ${(props) => props.theme.colors.blackText};
+  }
+  &:focus {
+    border: 0.05px solid #808080;
+    box-shadow: 0px 0px 2px #808080;
+  }
 `;
 
 export const SubmitButton = styled.button`

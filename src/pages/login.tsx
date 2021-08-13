@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { LoginForm } from '../components/LoginForm';
 import { SnackbarAlert } from '../components/SnackbarAlert';
 import { Login as LoginTypes, useLoginMutation } from '../generated/graphql';
+import { CenterContainer } from '../styles/login';
 import { PrimaryContainer } from '../styles/styledComponents/containers';
 import { H1 } from '../styles/styledComponents/titles';
 import { setAccessToken } from '../utils/authUtils';
@@ -26,7 +27,9 @@ const Login: React.FC<LoginProps> = ({}) => {
   return (
     <PrimaryContainer>
       <H1>Login</H1>
-      <LoginForm onSubmit={handleLogin} />
+      <CenterContainer>
+        <LoginForm onSubmit={handleLogin} />
+      </CenterContainer>
       {error && <SnackbarAlert message={error} severity="error" />}
     </PrimaryContainer>
   );

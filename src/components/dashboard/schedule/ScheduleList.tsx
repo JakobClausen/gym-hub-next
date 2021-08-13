@@ -3,9 +3,10 @@ import dayjs from 'dayjs';
 import { AnimateSharedLayout, motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { Exact, GymClass } from '../../../generated/graphql';
+import { Button } from '../../../styles/styledComponents/buttons';
 import { Container } from '../../../styles/styledComponents/schedule';
+import { ParagraphMedium } from '../../../styles/styledComponents/text';
 import { Weekdays } from '../../../types/schedule';
-import { BigButton } from '../../BigButton';
 import { ScheduleCard } from './ScheduleCard';
 
 interface ScheduleListProps {
@@ -34,7 +35,7 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
   return (
     <Container>
       {list && list.length === 0 && (
-        <p style={{ color: 'white' }}>{`No Classes ${dayTitle}`}</p>
+        <ParagraphMedium>{`No Classes ${dayTitle}`}</ParagraphMedium>
       )}
       <AnimateSharedLayout>
         <motion.ul layout style={{ padding: 0 }}>
@@ -57,11 +58,9 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({
           )}
         </motion.ul>
         <motion.div layout>
-          <BigButton
-            onClick={toggleAddNewClass}
-            disabled={addNewClass}
-            title="Add new class"
-          />
+          <Button onClick={toggleAddNewClass} disabled={addNewClass}>
+            Add new class
+          </Button>
         </motion.div>
       </AnimateSharedLayout>
     </Container>

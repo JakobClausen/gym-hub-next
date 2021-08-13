@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { bottomNav } from '../../constants/routes';
 import { useAppContext } from '../../context/AppContext';
 import { SpaceBetween } from '../../styles/styledComponents/align';
-import { Avatar } from '../../styles/styledComponents/image';
 import {
   BottomNav,
   LayoutContainer,
@@ -24,7 +23,7 @@ export const DashLayout: React.FC<DashLayoutProps> = ({ children }) => {
       <TopLayout>
         <SpaceBetween>
           <H4>Dashboard</H4>
-          <Avatar src={gym?.logoUrl} />
+          <H4>{gym?.name}</H4>
         </SpaceBetween>
       </TopLayout>
       {children}

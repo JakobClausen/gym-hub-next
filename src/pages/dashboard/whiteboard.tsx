@@ -9,11 +9,9 @@ import {
   useGetWorkoutLazyQuery,
 } from '../../generated/graphql';
 import { DashContentContainer } from '../../styles/styledComponents/dashboard';
+import { ParagraphMedium } from '../../styles/styledComponents/text';
 import { H3 } from '../../styles/styledComponents/titles';
-import {
-  Container,
-  ErrInfoText,
-} from '../../styles/styledComponents/whiteboard';
+import { Container } from '../../styles/styledComponents/whiteboard';
 import { WeekdayOption } from '../../types/schedule';
 
 interface WhiteboardProps {}
@@ -47,7 +45,7 @@ const Whiteboard: React.FC<WhiteboardProps> = ({}) => {
             <H3>Whiteboard</H3>
 
             {workout?.getWorkoutByDay.externalApiProvider ? (
-              <ErrInfoText>{`You can't edit the whiteboard when using ${workout.getWorkoutByDay.externalApiProvider}`}</ErrInfoText>
+              <ParagraphMedium>{`You can't edit the whiteboard when using ${workout.getWorkoutByDay.externalApiProvider}`}</ParagraphMedium>
             ) : (
               <Container>
                 <Select

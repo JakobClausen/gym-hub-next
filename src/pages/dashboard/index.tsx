@@ -4,7 +4,7 @@ import { Hello } from '../../components/dashboard/Hello';
 import { LinkButton } from '../../components/LinkButton';
 import { Loading } from '../../components/Loading';
 import { useAppContext } from '../../context/AppContext';
-import { TopBottomSpace } from '../../styles/styledComponents/containers';
+import { BottomContainerDash } from '../../styles/styledComponents/containers';
 import { DashContentContainer } from '../../styles/styledComponents/dashboard';
 import { isMobile } from '../../utils/platformUtils';
 
@@ -19,9 +19,11 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
         <Hello name={user.firstName}></Hello>
       </DashContentContainer>
       {!isMobile() && (
-        <TopBottomSpace>
-          <LinkButton title="Go to timer" as="/timer" href="/timer" />
-        </TopBottomSpace>
+        <BottomContainerDash>
+          <LinkButton as="/timer" href="/timer">
+            Go to timer
+          </LinkButton>
+        </BottomContainerDash>
       )}
     </DashLayout>
   );

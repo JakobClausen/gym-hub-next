@@ -1,23 +1,16 @@
-import { Button, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { Formik, FormikHelpers } from 'formik';
 import React from 'react';
 import { Login } from '../generated/graphql';
-import { InputContainer } from '../styles/styledComponents/containers';
+import { Button } from '../styles/styledComponents/buttons';
 import { Form, FormContainer } from '../styles/styledComponents/form';
 import { loginValidationSchema } from '../validation/login';
-
-const useStyles = makeStyles({
-  button: {
-    backgroundColor: '#FFFFFF',
-  },
-});
+import { InputField } from './InputField';
 
 interface LoginFormProps {
   onSubmit: (cridentials: Login) => Promise<void>;
 }
+
 export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
-  const styles = useStyles();
   return (
     <FormContainer>
       <Formik
@@ -28,39 +21,24 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           setSubmitting(false);
         }}
       >
-        {({ handleSubmit, handleChange, handleBlur, values, isSubmitting }) => (
+        {({ handleSubmit, handleChange, handleBlur, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
-            <InputContainer>
-              <TextField
-                id="email"
-                name="email"
-                label="Email"
-                variant="filled"
-                fullWidth
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={styles.button}
-              />
-            </InputContainer>
-            <InputContainer>
-              <TextField
-                id="password"
-                name="password"
-                label="Password"
-                variant="filled"
-                fullWidth
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={styles.button}
-              />
-            </InputContainer>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              fullWidth
-              disabled={isSubmitting}
-            >
+            <InputField
+              name="email"
+              label="Email"
+              placeholder="Email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <InputField
+              name="password"
+              label="Password"
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <Button type="submit" disabled={isSubmitting}>
               Login
             </Button>
           </Form>

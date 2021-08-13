@@ -27,7 +27,7 @@ export const NavigationLine = styled.div`
   left: 0;
   right: 0;
   height: 2px;
-  background: #ffffff;
+  background: #000000;
 `;
 
 export const NavigationTitle = styled.p`
@@ -35,7 +35,7 @@ export const NavigationTitle = styled.p`
   bottom: 0;
   left: 0;
   right: 0;
-  color: #ffffff;
+  color: ${(props) => props.theme.colors.blackText};
   font-size: 10px;
   text-align: center;
 `;

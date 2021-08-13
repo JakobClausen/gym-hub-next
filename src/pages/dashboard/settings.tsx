@@ -2,7 +2,7 @@ import React from 'react';
 import { DashLayout } from '../../components/dashboard/DashLayout';
 import { LinkButton } from '../../components/LinkButton';
 import { useLogoutMutation } from '../../generated/graphql';
-import { BottomContainer } from '../../styles/styledComponents/containers';
+import { BottomContainerDash } from '../../styles/styledComponents/containers';
 import { DashContentContainer } from '../../styles/styledComponents/dashboard';
 import { H3 } from '../../styles/styledComponents/titles';
 
@@ -16,9 +16,11 @@ const Settings: React.FC<SettingsProps> = ({}) => {
     <DashLayout>
       <DashContentContainer>
         <H3>Settings</H3>
-        <BottomContainer>
-          <LinkButton title="Logout" as="/" href="/" onClick={handleLogout} />
-        </BottomContainer>
+        <BottomContainerDash>
+          <LinkButton as="/" href="/" onClick={handleLogout}>
+            Logout
+          </LinkButton>
+        </BottomContainerDash>
       </DashContentContainer>
     </DashLayout>
   );
