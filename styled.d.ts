@@ -9,12 +9,18 @@ declare module 'styled-components' {
       inactiveGymClass: string;
       activeGymClass: string;
     };
+    fontSize: {
+      small: string;
+    };
     padding: {
       border: string;
     };
     margin: {
       bottom: string;
       top: string;
+    };
+    spacing: {
+      button: string;
     };
     timer: {
       color: {

@@ -6,12 +6,18 @@ export default {
     inactiveGymClass: '#222222',
     activeGymClass: 'Green',
   },
+  fontSize: {
+    small: '12px',
+  },
   padding: {
     border: '20px',
   },
   margin: {
     bottom: '10vh',
     top: '10vh',
+  },
+  spacing: {
+    button: '8px',
   },
   timer: {
     color: {

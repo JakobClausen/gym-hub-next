@@ -1,12 +1,13 @@
 import Head from 'next/head';
 import React from 'react';
 import { LinkButton } from '../components/LinkButton';
-import { CenterHorizontal } from '../styles/styledComponents/align';
+import { LeftHorizontal } from '../styles/styledComponents/align';
 import {
   BottomContainer,
   PrimaryContainer,
 } from '../styles/styledComponents/containers';
-import { H1 } from '../styles/styledComponents/titles';
+import { ParagraphFrontPage } from '../styles/styledComponents/text';
+import { H2, H3 } from '../styles/styledComponents/titles';
 
 const Home = () => {
   return (
@@ -20,11 +21,23 @@ const Home = () => {
         />
       </Head>
       <PrimaryContainer>
-        <CenterHorizontal>
-          <H1>Gymhub</H1>
-        </CenterHorizontal>
+        <LeftHorizontal>
+          <H2>Gymhub</H2>
+        </LeftHorizontal>
         <BottomContainer>
-          <LinkButton title="Login" as="/login" href="/login" />
+          <div>
+            <H3>Gym hub</H3>
+            <ParagraphFrontPage>
+              ext ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It h
+            </ParagraphFrontPage>
+          </div>
+          <LinkButton as="/login" href="/login">
+            Login
+          </LinkButton>
+          <LinkButton as="/login" href="/login" disabled={true}>
+            Signup is not available in beta
+          </LinkButton>
         </BottomContainer>
       </PrimaryContainer>
     </div>
