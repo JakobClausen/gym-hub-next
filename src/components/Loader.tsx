@@ -7,7 +7,7 @@ interface LoaderProps {}
 export const Loader: React.FC<LoaderProps> = ({}) => {
   return (
     <Container>
-      <BarLoader loading={true} color={'#FFFFFF'} />
+      <BarLoader loading color="#000000" />
     </Container>
   );
 };

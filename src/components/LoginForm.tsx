@@ -33,6 +33,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
             <InputField
               name="password"
               label="Password"
+              type="password"
               placeholder="Password"
               onChange={handleChange}
               onBlur={handleBlur}

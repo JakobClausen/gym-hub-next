@@ -6,11 +6,14 @@ declare module 'styled-components' {
       primary: string;
       secondary: string;
       whiteText: string;
+      blackText: string;
       inactiveGymClass: string;
       activeGymClass: string;
+      warning: string;
     };
     fontSize: {
       small: string;
+      medium: string;
     };
     padding: {
       border: string;

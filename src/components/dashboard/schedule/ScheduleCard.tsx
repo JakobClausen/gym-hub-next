@@ -171,6 +171,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
                         label="Type"
                         value={values.type}
                         onChange={handleChange}
+                        placeholder="Crossfit"
                       />
                       <InputContainerFlex>
                         <TextField
@@ -222,6 +223,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
                                 ? handleDeleteGymClass
                                 : toggleAddNewClass
                             }
+                            btnType="warning"
                           >
                             Delete
                           </Button>
