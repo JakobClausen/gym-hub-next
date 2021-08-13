@@ -1,4 +1,4 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button, makeStyles, TextField } from '@material-ui/core';
 import { Formik, FormikHelpers } from 'formik';
 import React from 'react';
 import { Login } from '../generated/graphql';
@@ -9,7 +9,17 @@ import { loginValidationSchema } from '../validation/login';
 interface LoginFormProps {
   onSubmit: (cridentials: Login) => Promise<void>;
 }
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: '#FFFFFF',
+  },
+  multilineColor: {
+    color: '#FFFFFF',
+  },
+});
+
 export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+  const classes = useStyles();
   return (
     <FormContainer>
       <Formik
@@ -20,7 +30,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           setSubmitting(false);
         }}
       >
-        {({ handleSubmit, handleChange, handleBlur, values, isSubmitting }) => (
+        {({ handleSubmit, handleChange, handleBlur, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <InputContainer>
               <TextField
@@ -32,6 +42,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 color="secondary"
+                className={classes.root}
+                InputProps={{
+                  classes: {
+                    input: classes.multilineColor,
+                  },
+                }}
               />
             </InputContainer>
             <InputContainer>
@@ -43,11 +59,18 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                 fullWidth
                 onChange={handleChange}
                 onBlur={handleBlur}
+                color="secondary"
+                className={classes.root}
+                InputProps={{
+                  classes: {
+                    input: classes.multilineColor,
+                  },
+                }}
               />
             </InputContainer>
             <Button
               variant="contained"
-              color="primary"
+              color="secondary"
               type="submit"
               fullWidth
               disabled={isSubmitting}

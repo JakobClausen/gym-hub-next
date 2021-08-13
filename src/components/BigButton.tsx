@@ -15,7 +15,7 @@ export const BigButton: React.FC<BigButtonProps> = ({
   return (
     <Button
       variant="contained"
-      color="primary"
+      color="secondary"
       fullWidth
       onClick={onClick ?? (() => {})}
       disabled={disabled}

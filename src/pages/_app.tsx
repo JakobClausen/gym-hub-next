@@ -1,4 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
+import { ThemeProvider as MaterialThemeProvider } from '@material-ui/core/styles';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import type { AppProps } from 'next/app';
@@ -10,6 +11,7 @@ import client from '../apollo/client';
 import { RefreshHOC } from '../components/auth/RefreshHOC';
 import { AppState } from '../context/state';
 import { GlobalStyle } from '../styles/globals';
+import MaterialTheme from '../styles/materialUiTheme';
 import Theme from '../styles/theme';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -18,12 +20,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <ApolloProvider client={client}>
       <GlobalStyle />
       <ThemeProvider theme={Theme}>
-        <RefreshHOC>
-          <Toaster />
-          <AppState>
-            <Component {...pageProps} />
-          </AppState>
-        </RefreshHOC>
+        <MaterialThemeProvider theme={MaterialTheme}>
+          <RefreshHOC>
+            <Toaster />
+            <AppState>
+              <Component {...pageProps} />
+            </AppState>
+          </RefreshHOC>
+        </MaterialThemeProvider>
       </ThemeProvider>
     </ApolloProvider>
   );

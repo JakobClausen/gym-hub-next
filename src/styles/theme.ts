@@ -1,7 +1,7 @@
 export default {
   colors: {
     primary: '#171717',
-    secondary: '#DH3HD4',
+    secondary: '#0000FF',
     whiteText: '#FFFFFF',
     inactiveGymClass: '#222222',
     activeGymClass: 'Green',
