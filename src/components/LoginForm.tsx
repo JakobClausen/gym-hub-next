@@ -1,5 +1,4 @@
 import { Button, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { Formik, FormikHelpers } from 'formik';
 import React from 'react';
 import { Login } from '../generated/graphql';
@@ -7,17 +6,10 @@ import { InputContainer } from '../styles/styledComponents/containers';
 import { Form, FormContainer } from '../styles/styledComponents/form';
 import { loginValidationSchema } from '../validation/login';
 
-const useStyles = makeStyles({
-  button: {
-    backgroundColor: '#FFFFFF',
-  },
-});
-
 interface LoginFormProps {
   onSubmit: (cridentials: Login) => Promise<void>;
 }
 export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
-  const styles = useStyles();
   return (
     <FormContainer>
       <Formik
@@ -39,7 +31,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                 fullWidth
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={styles.button}
+                color="secondary"
               />
             </InputContainer>
             <InputContainer>
@@ -51,7 +43,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                 fullWidth
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={styles.button}
               />
             </InputContainer>
             <Button
