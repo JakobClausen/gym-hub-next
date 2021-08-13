@@ -16,8 +16,8 @@ export default {
     border: '20px',
   },
   margin: {
-    bottom: '10vh',
-    top: '10vh',
+    bottom: '8vh',
+    top: '8vh',
   },
   spacing: {
     button: '8px',
