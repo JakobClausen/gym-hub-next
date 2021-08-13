@@ -11,9 +11,10 @@ interface LoginFormProps {
 }
 const useStyles = makeStyles({
   root: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#1f1e22',
+    borderRadius: '10px',
   },
-  multilineColor: {
+  input: {
     color: '#FFFFFF',
   },
 });
@@ -45,7 +46,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                 className={classes.root}
                 InputProps={{
                   classes: {
-                    input: classes.multilineColor,
+                    input: classes.input,
                   },
                 }}
               />

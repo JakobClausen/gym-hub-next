@@ -5,6 +5,7 @@ export const PrimaryContainer = styled.div`
   width: 100%;
   padding: ${(props) => props.theme.padding.border};
   background: ${(props) => props.theme.colors.primary};
+  position: relative;
 `;
 
 export const BottomContainer = styled.div`
