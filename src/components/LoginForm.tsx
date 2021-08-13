@@ -1,10 +1,10 @@
-import { Button, makeStyles, TextField } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import { Formik, FormikHelpers } from 'formik';
 import React from 'react';
 import { Login } from '../generated/graphql';
-import { InputContainer } from '../styles/styledComponents/containers';
 import { Form, FormContainer } from '../styles/styledComponents/form';
 import { loginValidationSchema } from '../validation/login';
+import { InputField } from './InputField';
 
 interface LoginFormProps {
   onSubmit: (cridentials: Login) => Promise<void>;
@@ -33,42 +33,20 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       >
         {({ handleSubmit, handleChange, handleBlur, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
-            <InputContainer>
-              <TextField
-                id="email"
-                name="email"
-                label="Email"
-                variant="filled"
-                fullWidth
-                onChange={handleChange}
-                onBlur={handleBlur}
-                color="secondary"
-                className={classes.root}
-                InputProps={{
-                  classes: {
-                    input: classes.input,
-                  },
-                }}
-              />
-            </InputContainer>
-            <InputContainer>
-              <TextField
-                id="password"
-                name="password"
-                label="Password"
-                variant="filled"
-                fullWidth
-                onChange={handleChange}
-                onBlur={handleBlur}
-                color="secondary"
-                className={classes.root}
-                InputProps={{
-                  classes: {
-                    input: classes.multilineColor,
-                  },
-                }}
-              />
-            </InputContainer>
+            <InputField
+              name="email"
+              label="Email"
+              placeholder="Email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <InputField
+              name="password"
+              label="Password"
+              placeholder="Password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
             <Button
               variant="contained"
               color="secondary"
