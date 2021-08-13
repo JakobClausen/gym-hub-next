@@ -26,10 +26,6 @@ export const BottomContainerDash = styled.div`
   background: ${(props) => props.theme.colors.primary};
 `;
 
-export const TopBottomSpace = styled.div`
-  margin: ${(props) => `${props.theme.padding.border} 0px`};
-`;
-
 export const InputContainer = styled.div`
   margin-bottom: 10px;
 `;
