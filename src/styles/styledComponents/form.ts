@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.div`
   width: 100%;
+  height: 60%;
   display: flex;
   justify-content: center;
   padding: 30px 0px;
@@ -10,6 +11,9 @@ export const FormContainer = styled.div`
 export const Form = styled.form`
   width: 100%;
   padding: 30px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const Label = styled.label`
@@ -36,9 +40,4 @@ export const Input = styled.input`
   &:focus {
     outline: none !important;
   }
-`;
-
-export const SubmitButton = styled.button`
-  width: 100%;
-  height: 40px;
 `;

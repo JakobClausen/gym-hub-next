@@ -23,21 +23,23 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       >
         {({ handleSubmit, handleChange, handleBlur, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
-            <InputField
-              name="email"
-              label="Email"
-              placeholder="jakob.fridmar@gmail.com"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            <InputField
-              name="password"
-              label="Password"
-              type="password"
-              placeholder="yourpassword123"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            <div>
+              <InputField
+                name="email"
+                label="Email"
+                placeholder="jakob.fridmar@gmail.com"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <InputField
+                name="password"
+                label="Password"
+                type="password"
+                placeholder="yourpassword123"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </div>
             <Button type="submit" disabled={isSubmitting}>
               Login
             </Button>
