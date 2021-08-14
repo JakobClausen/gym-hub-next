@@ -26,7 +26,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
             <InputField
               name="email"
               label="Email"
-              placeholder="Email"
+              placeholder="jakob.fridmar@gmail.com"
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -34,7 +34,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
               name="password"
               label="Password"
               type="password"
-              placeholder="Password"
+              placeholder="yourpassword123"
               onChange={handleChange}
               onBlur={handleBlur}
             />

@@ -27,5 +27,5 @@ export const BottomContainerDash = styled.div`
 `;
 
 export const InputContainer = styled.div`
-  margin-bottom: 10px;
+  margin: 30px 0px;
 `;

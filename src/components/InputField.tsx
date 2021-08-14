@@ -14,7 +14,7 @@ export const InputField: React.FC<InputFieldProps> = ({
 }) => {
   return (
     <InputContainer>
-      <Label htmlFor={name}></Label>
+      <Label htmlFor={name}>{label}</Label>
       <Input {...rest} name={name} />
     </InputContainer>
   );
