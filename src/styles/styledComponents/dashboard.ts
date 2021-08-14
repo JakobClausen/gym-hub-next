@@ -29,14 +29,3 @@ export const NavigationLine = styled.div`
   height: 2px;
   background: #000000;
 `;
-
-export const NavigationTitle = styled.p`
-  margin: 4px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  color: ${(props) => props.theme.colors.blackText};
-  font-size: 10px;
-  text-align: center;
-`;
