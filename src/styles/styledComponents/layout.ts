@@ -30,4 +30,6 @@ export const BottomNav = styled.div`
   z-index: 999;
   height: 8vh;
   background: ${(props) => props.theme.colors.primary};
+  -webkit-box-shadow: 0px 0px 50px -12px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 0px 50px -12px rgba(0, 0, 0, 0.35);
 `;

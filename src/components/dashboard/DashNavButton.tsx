@@ -5,7 +5,6 @@ import {
   ButtonLink,
   IconContainer,
   NavigationLine,
-  NavigationTitle,
 } from '../../styles/styledComponents/dashboard';
 import { NavIcon } from '../../styles/styledComponents/image';
 
@@ -30,8 +29,7 @@ export const DashNavButton: React.FC<DashNavButtonProps> = ({
     <Link as={path} href={path}>
       <ButtonLink>
         <IconContainer>
-          <NavIcon src={src} />
-          <NavigationTitle>{name}</NavigationTitle>
+          <NavIcon src={src} isActive={isActive} />
           {isActive && <NavigationLine />}
         </IconContainer>
       </ButtonLink>

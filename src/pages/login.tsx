@@ -3,9 +3,15 @@ import React, { useState } from 'react';
 import { LoginForm } from '../components/LoginForm';
 import { SnackbarAlert } from '../components/SnackbarAlert';
 import { Login as LoginTypes, useLoginMutation } from '../generated/graphql';
-import { CenterContainer } from '../styles/login';
 import { PrimaryContainer } from '../styles/styledComponents/containers';
-import { H1 } from '../styles/styledComponents/titles';
+import {
+  BottomInfoContainer,
+  Logo,
+  LogoContainer,
+  TopContainer,
+} from '../styles/styledComponents/login';
+import { ParagraphFadedSmall } from '../styles/styledComponents/text';
+import { H2 } from '../styles/styledComponents/titles';
 import { setAccessToken } from '../utils/authUtils';
 
 interface LoginProps {}
@@ -26,10 +32,19 @@ const Login: React.FC<LoginProps> = ({}) => {
 
   return (
     <PrimaryContainer>
-      <H1>Login</H1>
-      <CenterContainer>
-        <LoginForm onSubmit={handleLogin} />
-      </CenterContainer>
+      <TopContainer>
+        <LogoContainer>
+          <Logo />
+        </LogoContainer>
+        <H2 style={{ textAlign: 'center' }}>Login</H2>
+      </TopContainer>
+      <LoginForm onSubmit={handleLogin} />
+      <BottomInfoContainer>
+        <ParagraphFadedSmall>Don't have an accout yet?</ParagraphFadedSmall>
+        <ParagraphFadedSmall>
+          Click <b>here</b> to enroll in the bete program
+        </ParagraphFadedSmall>
+      </BottomInfoContainer>
       {error && <SnackbarAlert message={error} severity="error" />}
     </PrimaryContainer>
   );

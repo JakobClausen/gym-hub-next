@@ -1,7 +1,7 @@
 export default {
   colors: {
     primary: '#FFFFFF',
-    secondary: '#0000FF',
+    secondary: '#2368F6',
     whiteText: '#FFFFFF',
     blackText: '#000000',
     inactiveGymClass: '#222222',

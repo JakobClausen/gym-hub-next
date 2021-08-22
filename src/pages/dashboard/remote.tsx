@@ -8,7 +8,7 @@ const Remote: React.FC<RemoteProps> = ({}) => {
   return (
     <DashLayout>
       <DashContentContainer>
-        <H3>remote</H3>
+        <H3>Remote</H3>
       </DashContentContainer>
     </DashLayout>
   );
