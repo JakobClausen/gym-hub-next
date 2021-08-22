@@ -15,3 +15,9 @@ export const ParagraphFrontPage = styled.p`
   line-height: 20px;
   opacity: 0.8;
 `;
+
+export const ParagraphFadedSmall = styled.p`
+  color: ${(props) => props.theme.colors.blackText};
+  font-size: ${(props) => props.theme.fontSize.small};
+  opacity: 0.4;
+`;

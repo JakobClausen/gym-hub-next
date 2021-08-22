@@ -14,7 +14,7 @@ export const CenterContainer = styled.div`
 
 export const TopContainer = styled.div`
   width: 100%;
-  height: 30vh;
+  height: 37vh;
 `;
 
 export const LogoContainer = styled.div`
@@ -23,6 +23,11 @@ export const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const BottomInfoContainer = styled.div`
+  width: 100%;
+  margin-top: 20%;
 `;
 
 export const Logo = styled.div`

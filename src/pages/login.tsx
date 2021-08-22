@@ -5,10 +5,12 @@ import { SnackbarAlert } from '../components/SnackbarAlert';
 import { Login as LoginTypes, useLoginMutation } from '../generated/graphql';
 import { PrimaryContainer } from '../styles/styledComponents/containers';
 import {
+  BottomInfoContainer,
   Logo,
   LogoContainer,
   TopContainer,
 } from '../styles/styledComponents/login';
+import { ParagraphFadedSmall } from '../styles/styledComponents/text';
 import { H2 } from '../styles/styledComponents/titles';
 import { setAccessToken } from '../utils/authUtils';
 
@@ -37,6 +39,12 @@ const Login: React.FC<LoginProps> = ({}) => {
         <H2 style={{ textAlign: 'center' }}>Login</H2>
       </TopContainer>
       <LoginForm onSubmit={handleLogin} />
+      <BottomInfoContainer>
+        <ParagraphFadedSmall>Don't have an accout yet?</ParagraphFadedSmall>
+        <ParagraphFadedSmall>
+          Click <b>here</b> to enroll in the bete program
+        </ParagraphFadedSmall>
+      </BottomInfoContainer>
       {error && <SnackbarAlert message={error} severity="error" />}
     </PrimaryContainer>
   );
